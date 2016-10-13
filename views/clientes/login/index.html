@@ -1,0 +1,15 @@
+<div ng-controller='loginController'>
+	<form method="post" class="login"> 
+	    <div>
+	    	<label>Username</label>
+	    	<input name="user" ng-model="vm.name" type="text" >
+	    </div> 
+	    <div>
+	    	<label>Password</label>
+	    	<input name="password" ng-model="vm.password" type="password">
+	    </div> 
+	    <div>
+	    	<input name="login" type="button" ng-click="vm.autenticarUsuario()" value="login">
+	    </div> 
+	</form> 
+</div>
