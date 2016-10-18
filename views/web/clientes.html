@@ -1,32 +1,28 @@
 	<section id="content">
 	<div class="zerogrid">
 	<div class="row content-bg">
-		<div class="wrap-col">
-	          <h2>Lista de precios</h2>
-	          	          	<div class="col-1-2">
-	          <form method="post" class="formContacto">
-	          	<div id="contact-form1">
-	          		<label class="name">
-	              <span>Usuario:</span><br>
-				<input type="text" id="user"><br>
-			</label>
-			<label class="name">
-	        <span>Contraseña:</span><br>
-	          <input type="password" id="password">
-	      </label>
-			<br><br>
-			</div>
-			<br>
-	         <div>	                                  
-	          <input type="submit" value="Buscar" class="buttonLista" id="botonEnvio"> 
-	          </div> 
-	      </div>
-	      <div class="col-1-2">
-	      	<br>
-			<div id="listaReferencia"></div>
-		</div>
-	        </form>
-			</div>
+	          <h2>Consultas Clientes</h2>
+	          <div class="col-1-3">
+				</div>	
+		         <div align="center" class="col-1-3 banner-box">
+		         	<img src="../public/images/user-01.png" alt="" />
+		          <form method="post" class="ng-pristine ng-valid">
+		          	<div>
+	    	<label>Username</label>
+	    	<input name="user" ng-model="vm.name" type="text" >
+		    </div> 
+		    <div>
+		    	<label>Password</label>
+		    	<input name="password" ng-model="vm.password" type="password">
+		    </div> 
+		    <div>
+		    </div>
+				<br>
+		         <div>	                                  
+		          <input type="button" ng-click="vm.autenticarUsuario()" value="Ingresar" class="buttonLista"> 
+		          </div> 
+		          </form>
+		      </div>        
 		</div>
 	</div>
 	</section>

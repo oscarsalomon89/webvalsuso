@@ -9,7 +9,10 @@ Author URI: http://www.zerotheme.com/
 .zerogrid{ width: 950px; position: relative; margin: 0 auto; padding: 0px;}
 .zerogrid:after { content: "\0020"; display: block; height: 0; clear: both; visibility: hidden; }
 
-.zerogrid .row{}
+.zerogrid .row{
+	margin-right: 0px;
+	margin-left: 0px;
+}
 .zerogrid .row:before,.row:after { content: '\0020'; display: block; overflow: hidden; visibility: hidden; width: 0; height: 0; }
 .zerogrid .row:after{clear: both; }
 .zerogrid .row{zoom: 1;}

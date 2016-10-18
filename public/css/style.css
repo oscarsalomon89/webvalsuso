@@ -186,7 +186,7 @@ p {padding-bottom:18px;}
 .indent-bot-2 {
 	padding:0 0 20px 0;
 }
-.indent-right {margin-right:-50px;
+.indent-right {margin-right:-10px;
 				margin-left:30px}
 .pad-left {
 	padding-left:35px;
@@ -250,8 +250,9 @@ header{
 	background:url(../images/slide-1.jpg) no-repeat center 80px;
 }
 header .inner {
-	background:url(../images/header-bg.png);
-	padding:26px 40px 25px 40px;
+	background-color:#353535;
+	margin-top: -25px;
+	padding:2px 40px 2px 4px;
 	position:relative;
 	z-index:2;
 }
@@ -259,7 +260,7 @@ header .inner {
 	display:inline-block;
 	padding:0 !important;
 }
-.logo a {
+/*.logo a {
 	position:relative;
 	background: url(../images/logo.png) no-repeat 0 0;
 	height:58px;
@@ -267,7 +268,7 @@ header .inner {
 	overflow:hidden;
 	text-indent:-99em;
 	display:block;
-}
+}*/
 /********************** Slider ************************/
 .mp-slider .items {display:none;}
 .mp-slider {
@@ -285,7 +286,7 @@ header .inner {
 .mp-prev, .mp-next {
 	position:absolute;
 	width:31px;
-	height:402px;
+	height:482px;
 	bottom:0;
 	z-index:3;
 }
@@ -379,7 +380,7 @@ nav {
 	text-decoration:none;
 	display:block;
 	font-family: 'Open Sans', sans-serif;
-	font-size:14px;
+	font-size:16px;
 	line-height:18px;
 	text-transform:uppercase;
 	color:#fff;
@@ -565,6 +566,7 @@ padding-bottom:5px;
 font-size:18px;
 font-family:'Oswald';
 }
+
 .buttonLista{
   border-style: solid;
   border-width: 1px;
@@ -572,19 +574,20 @@ font-family:'Oswald';
   font-family: inherit;
   font-weight: bold;
   line-height: normal;
-  margin: 0 0 1.25em;
+  margin-right: 7px;
   position: relative;
   text-decoration: none;
   text-align: center;
   display: inline-block;
   padding-top: 0.75em;
-  padding-right: 1.5em;
+  padding-right: 2em;
   padding-bottom: 0.8125em;
   padding-left: 1.5em;
   font-size: 1em;
-  background-color: #2ba6cb;
-  border-color: #2284a1;
-  color: white; }
+  background-color: #1E3385;
+  border-color: #1E3385;
+  color: white; 
+float: right;}
 
   .formContacto{
   	margin: 10px 40px 15px 3px;
@@ -599,5 +602,5 @@ font-family:'Oswald';
   	color: 'white';
   }
   #contact-form1{
-max-width: 90%;
+	max-width: 90%;
   }

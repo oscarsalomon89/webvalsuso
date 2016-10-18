@@ -60,7 +60,7 @@ angular.module("app", ["ngRoute",'angularUtils.directives.dirPagination'])
                 templateUrl: "clientes/login/index.html"
             })
             .when("/clientes", {
-                controller: "mainController",
+                controller: "clienteController",
                 controllerAs: "vm",
                 templateUrl: "web/clientes.html"
             })
@@ -98,7 +98,13 @@ angular.module("app", ["ngRoute",'angularUtils.directives.dirPagination'])
      return interfaz;                    
     })
     .controller('mainController', function($http,clientesFactory) {
+        var vm = this;
+
         $("#ini").addClass( "current" );
+        $("#prod").removeClass( "current" );
+        $("#ubi").removeClass( "current" );
+        $("#cont").removeClass( "current" );
+        $("#cli").removeClass( "current" );
         $(document).ready(function(){
           $('.mp-slider')._TMS({
             show:0,
@@ -114,6 +120,19 @@ angular.module("app", ["ngRoute",'angularUtils.directives.dirPagination'])
             banners:'fade',// fromLeft, fromRight, fromTop, fromBottom
             waitBannerAnimation:false
           })    
-       })        
+       });
+
+      vm.openPicture = function(image) {
+        swal({
+          imageUrl: '../public/images/'+image,
+          text: 'Modal with a custom image.',
+          imageWidth: 400,
+          imageHeight: 200,
+          showCloseButton: true,
+          showConfirmButton: false
+        })         
+        }
+
+       vm     
     });  
     
