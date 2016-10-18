@@ -16,7 +16,8 @@ angular.module("app")
       success(function(data) {
          if(typeof(data) == 'object'){
             if(data['rol'] == 1){
-              $location.url("/admin");
+              //window.open("http://localhost/webvalsuso/views/admin", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
+              $location.url("/usuarios");//admin
             }else{
               $location.url("/clientes");
             }            

@@ -1,4 +1,60 @@
-<div ng-controller='clienteController'>
-<h1>Logueado<h1> 
+<section id="content">
+<div class="zerogrid"> 
+	<div class="content-bg">
+	
+<h1>Seccion Clientes</h1> 
 <a class="btn btn-success" ng-click="vm.salir()">Logout</a>
+<div class="row">
+<div class="col-md-2">
 </div>
+<div class="col-md-8">
+	<div class="row">
+    <div class="col-xs-1">
+    </div>
+    <div class="col-xs-5">
+      <label for="search">Busqueda:</label>
+      <input ng-model="vm.q" id="search" class="form-control" placeholder="Filter text">
+    </div>
+    <div class="col-xs-5">
+      <label for="search">productos por pagina:</label>
+      <input type="number" min="1" max="20" class="form-control" ng-model="vm.pageSize">
+    </div>
+    <div class="col-xs-1">
+    </div>
+  </div>
+<br>
+<div class="widget-content-white glossed" ng-init="vm.cargarProductos()">
+    <table class="table">
+            <thead>
+               <tr>
+                  <th> Codigo </th>
+                  <th> Descripcion </th>
+                  <th> Precio </th>
+                  <th> </th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr dir-paginate="item in vm.productos | filter:vm.q | itemsPerPage: vm.pageSize">
+                   <td> {{item.codigo}} </td>
+                   <td> {{item.descripcion}} </td>
+                   <td> {{item.precio}}</td>
+                   <td>  </td>
+                 </tr>
+              </tbody>
+           </table>
+      <div class="other-controller">
+          <div class="text-center">
+          <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="dirPagination.tpl.html">
+        </dir-pagination-controls>
+          </div>
+        </div>
+</div>
+</div>
+<div class="col-md-2">
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</section>

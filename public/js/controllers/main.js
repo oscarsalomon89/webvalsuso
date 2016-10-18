@@ -24,7 +24,8 @@ angular.module("app", ["ngRoute",'angularUtils.directives.dirPagination'])
                   transformRequest: angular.identity,
                   headers: {'Content-Type': undefined}
                })            
-               .success(function(){
+               .success(function(result){
+                  console.log(result);
                   return true;
                })            
                .error(function(){
@@ -63,6 +64,11 @@ angular.module("app", ["ngRoute",'angularUtils.directives.dirPagination'])
                 controller: "clienteController",
                 controllerAs: "vm",
                 templateUrl: "web/clientes.html"
+            })
+            .when("/usuarios", {
+                controller: "clienteController",
+                controllerAs: "vm",
+                templateUrl: "clientes/productos/index.html"
             })
             .when("/admin", {
                 controller: "adminController",

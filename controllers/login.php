@@ -35,7 +35,7 @@ switch ($obj->auth) {
             echo 'login'; 
         } else {
             if(isset($_SESSION['rol']) && $_SESSION['rol'] == 1){ 
-                echo 'admin'; 
+                echo 'usuarios'; //admin
             }else{
                 echo 'clientes';
             }             

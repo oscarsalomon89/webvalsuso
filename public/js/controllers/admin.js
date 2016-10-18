@@ -9,9 +9,6 @@ angular.module("app")
     clientesFactory.getAuth();    
 
 vm.uploadFile = function() {
-    //var name = $scope.name;
-    //var file = $scope.file;
-
     var file = vm.file;
      
      var uploadUrl = "../controllers/fileUpload.php";
@@ -163,31 +160,21 @@ vm.uploadFile = function() {
 
    vm.nuevoUsuario = function() {
       vm._id = null;
-     swal({
-  title: 'Submit email to run ajax request',
-  input: 'email',
-  showCancelButton: true,
-  confirmButtonText: 'Submit',
-  showLoaderOnConfirm: true,
-  preConfirm: function(email) {
-    return new Promise(function(resolve, reject) {
-      setTimeout(function() {
-        if (email === 'taken@example.com') {
-          reject('This email is already taken.')
-        } else {
-          resolve()
-        }
-      }, 2000)
-    })
-  },
-  allowOutsideClick: false
-}).then(function(email) {
-  swal({
-    type: 'success',
-    title: 'Ajax request finished!',
-    html: 'Submitted email: ' + email
-  })
-})
+      swal.withFormAsync({
+        title: 'Cool Swal-Forms example',
+        text: 'Any text that you consider useful for the form',
+        showCancelButton: true,
+        confirmButtonColor: '#DD6B55',
+        confirmButtonText: 'Get form data!',
+        closeOnConfirm: true,
+        formFields: [
+          { id: 'name', placeholder: 'Name Field', required: true },
+          { id: 'nickname', placeholder: 'Add a cool nickname' }
+        ]
+      }, function (isConfirm) {
+        // do whatever you want with the form data
+        console.log(this.swalForm) // { name: 'user name', nickname: 'what the user sends' }
+      })
   }
 
 });

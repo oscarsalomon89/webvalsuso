@@ -1,5 +1,5 @@
 <section id="content">
-<div class="zerogrid content-bg"> 
+<div class="zerogrid"> 
 <div class="content-bg">
 
 <a class="btn btn-success" ng-click="vm.salir()">Logout</a>
@@ -38,18 +38,18 @@
   </div>
 </div>
 <div class="row">
-            <div class="col-xs-4">
-              <h3>Users Page: {{ vm.currentPage }}</h3>
-            </div>
-            <div class="col-xs-4">
-              <label for="search">Search:</label>
-              <input ng-model="vm.q" id="search" class="form-control" placeholder="Filter text">
-            </div>
-            <div class="col-xs-4">
-              <label for="search">users per page:</label>
-              <input type="number" min="1" max="20" class="form-control" ng-model="vm.pageSize">
-            </div>
-          </div>
+      <div class="col-xs-4">
+        <h3>Users Page: {{ vm.currentPage }}</h3>
+      </div>
+      <div class="col-xs-4">
+        <label for="search">Search:</label>
+        <input ng-model="vm.q" id="search" class="form-control" placeholder="Filter text">
+      </div>
+      <div class="col-xs-4">
+        <label for="search">users per page:</label>
+        <input type="number" min="1" max="20" class="form-control" ng-model="vm.pageSize">
+      </div>
+    </div>
 <br>
 <div class="widget-content-white glossed" ng-init="vm.cargarUsuarios()">
     <table class="table">

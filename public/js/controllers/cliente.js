@@ -1,6 +1,8 @@
 angular.module("app")
 .controller('clienteController', function($http,$location,clientesFactory) {
     var vm = this;
+    vm.productos = [];
+
     clientesFactory.getAuth();    
     $("#cli").addClass( "current" );
     $("#ini").removeClass( "current" );
@@ -47,6 +49,26 @@ angular.module("app")
             $location.url("/login");
          }else{
             alert(data);
+         }
+      }).
+      error(function() {
+         alert('Error al intentar recuperar los clientes.');
+      });
+   };
+
+   vm.cargarProductos = function(){
+      $http({
+         method: 'POST', 
+         url: '../controllers/productos.php',
+         data: {
+            auth: 1        
+        }
+      }).
+      success(function(data) {
+         if(typeof(data) == 'object'){
+            vm.productos = data;
+         }else{            
+            alert('Error al intentar recuperar los clientes.');
          }
       }).
       error(function() {
