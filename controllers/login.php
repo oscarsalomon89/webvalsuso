@@ -32,10 +32,10 @@ switch ($obj->auth) {
         break;
     default:
         if(!isset($_SESSION['userid'])){ 
-            echo 'login'; 
+            echo 'clientes'; 
         } else {
             if(isset($_SESSION['rol']) && $_SESSION['rol'] == 1){ 
-                echo 'usuarios'; //admin
+                echo 'admin'; //admin//usuarios
             }else{
                 echo 'clientes';
             }             
