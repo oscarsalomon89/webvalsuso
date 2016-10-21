@@ -25,7 +25,7 @@ angular.module("app")
             if(data['rol'] == 1){
               $location.url("/admin");
             }else{
-              $location.url("/clientes");
+              $location.url("/usuarios");
             }            
          }else{
             alert(data);

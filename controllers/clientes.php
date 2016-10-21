@@ -28,9 +28,15 @@ switch ($obj->auth) {
         break;
     case 2:
         $name = $obj->name;
-        //$password = $obj->password;
+        $id = $obj->id;
         $password = password_hash($obj->password,PASSWORD_DEFAULT);
-        $sql="insert into clientes(name,password,rol)values('$name','$password',2)";
+        if(is_null($id)){
+            $sql="insert into clientes(name,password,rol)values('$name','$password',2)";
+        }else{
+            $sql="update clientes set name = '$name',password = '$password' 
+                        WHERE id = ".$id;
+        }
+        
         $result = $mysqli->query($sql);
         echo $result;
         break;

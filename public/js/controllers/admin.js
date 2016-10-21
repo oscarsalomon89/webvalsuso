@@ -6,7 +6,7 @@ angular.module("app")
    vm.password = '';
    vm.users = [];
 
-    clientesFactory.getAuth();    
+clientesFactory.getAuth();    
 
 vm.uploadFile = function() {
     var file = vm.file;
@@ -72,15 +72,24 @@ vm.uploadFile = function() {
          data: {
             name: vm.name,
             password: vm.password,
-            _id: vm._id,
+            id: vm._id,
             auth : 2
          }
       }).
       success(function(data) {
-         if(data == true){
+         if(data == true){ 
+            if(vm._id){
+              var mensaje = 'El usuario se edito correctamente.';
+            }else{
+              var mensaje = 'El usuario fue creado con exito.';
+            }            
+            swal(
+              'Exito!',
+              mensaje,
+              'success'
+            )
             vm.limpiarDatos();
-            vm.cargarUsuarios(); 
-            $('#myModal').modal('toggle');
+            vm.cargarUsuarios();
          }else{
             console.log(data);
             //alert('Error al intentar guardar el cliente.');
@@ -101,11 +110,25 @@ vm.uploadFile = function() {
          }
       }).
       success(function(data) {
-         if(typeof(data) == 'object'){
-            $('#myModal').modal();
-            vm._id = data._id;
+         if(typeof(data) == 'object'){            
+            vm._id = data.id;
             vm.name = data.name;
-            vm.password = data.password;
+            swal({
+              title: '<strong>Editar usuario</strong>',
+              html:
+                '<label>Nombre cliente</label>'+
+                '<input id="user" type="text" value="'+vm.name+'" class="form-control" placeholder="Nombre de usuario">' +
+                '<label>Contraseña</label>' +
+                '<input type="password" id="password" value="" class="form-control" placeholder="Contraseña">',
+              showCloseButton: true,
+              showCancelButton: true,
+              confirmButtonText: 'Grabar',
+              cancelButtonText: 'Cancelar'
+            }).then(function() {
+                vm.name = document.getElementById('user').value;
+                vm.password = document.getElementById('password').value;
+                vm.guardarUsuario();        
+            })
          }else{
             console.log(data);
             alert('Error al intentar recuperar el cliente.');
@@ -154,26 +177,27 @@ vm.uploadFile = function() {
 
    vm.limpiarDatos = function() {
       vm._id = null;
-      vm.username = '';
+      vm.user = '';
       vm.password = '';
    };
 
    vm.nuevoUsuario = function() {
       vm._id = null;
-      swal.withFormAsync({
-        title: 'Cool Swal-Forms example',
-        text: 'Any text that you consider useful for the form',
+      swal({
+        title: '<strong>Nuevo usuario</strong>',
+        html:
+          '<label>Nombre cliente</label>'+
+          '<input id="user" type="text" value="" class="form-control" placeholder="Nombre de usuario">' +
+          '<label>Contraseña</label>' +
+          '<input type="password" id="password" value="" class="form-control" placeholder="Contraseña">',
+        showCloseButton: true,
         showCancelButton: true,
-        confirmButtonColor: '#DD6B55',
-        confirmButtonText: 'Get form data!',
-        closeOnConfirm: true,
-        formFields: [
-          { id: 'name', placeholder: 'Name Field', required: true },
-          { id: 'nickname', placeholder: 'Add a cool nickname' }
-        ]
-      }, function (isConfirm) {
-        // do whatever you want with the form data
-        console.log(this.swalForm) // { name: 'user name', nickname: 'what the user sends' }
+        confirmButtonText: 'Grabar',
+        cancelButtonText: 'Cancelar'
+      }).then(function() {
+          vm.name = document.getElementById('user').value;
+          vm.password = document.getElementById('password').value;
+          vm.guardarUsuario();        
       })
   }
 
