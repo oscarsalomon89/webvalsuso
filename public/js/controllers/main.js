@@ -47,6 +47,11 @@ angular.module("app", ["ngRoute",'angularUtils.directives.dirPagination'])
                 controllerAs: "vm",
                 templateUrl: "web/productos.html"
             })
+            .when("/servicios", {
+                controller: "productosController",
+                controllerAs: "vm",
+                templateUrl: "web/servicios.html"
+            })
             .when("/ubicacion", {
                 controller: "mainController",
                 controllerAs: "vm",

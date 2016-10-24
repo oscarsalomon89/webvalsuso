@@ -167,7 +167,9 @@ strong {color:#b30404;}
 	float:left;
 	margin:5px 10px 0 0;
 }
-.img-indent-bot {margin:5px 0 16px 0;}
+.img-indent-bot {
+	margin:5px 0 16px 0;
+	height: 130px;}
 
 p {padding-bottom:18px;}
 .p {padding-bottom:18px;}
@@ -380,7 +382,7 @@ nav {
 	text-decoration:none;
 	display:block;
 	font-family: 'Open Sans', sans-serif;
-	font-size:16px;
+	font-size:14px;
 	line-height:18px;
 	text-transform:uppercase;
 	color:#fff;
