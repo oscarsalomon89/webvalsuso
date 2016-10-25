@@ -2,7 +2,8 @@ angular.module("app")
 .controller('clienteController', function($http,$location,clientesFactory) {
     var vm = this;
     vm.productos = [];
-
+    vm.pageSize = 10;
+    
     clientesFactory.getAuth();    
     $("#cli").addClass( "current" );
     $("#ini").removeClass( "current" );

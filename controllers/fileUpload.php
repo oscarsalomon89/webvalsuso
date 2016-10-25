@@ -24,30 +24,24 @@ if($file && move_uploaded_file($_FILES["file"]["tmp_name"], "files/".$file)){
 
 	$objPHPExcel->setActiveSheetIndex(0);
 	$rows=$objPHPExcel->getActiveSheet()->getHighestRow();//cantidad de filas
-
+	
 	for ($i=2;$i<=$rows;$i++){
+		set_time_limit(20);
 		$codigoProd = $objPHPExcel->getActiveSheet()->getCell('B'.$i)->getCalculatedValue();
 		$description = $objPHPExcel->getActiveSheet()->getCell('C'.$i)->getCalculatedValue();
 		if($codigoProd != '' && $description != ''){
-			$_DATOS_EXCEL[$i]['id'] = $objPHPExcel->getActiveSheet()->getCell('A'.$i)->getCalculatedValue();
-			$_DATOS_EXCEL[$i]['codigo'] = $codigoProd;
-			$_DATOS_EXCEL[$i]['descripcion'] = $description;
-			$_DATOS_EXCEL[$i]['precio']= $objPHPExcel->getActiveSheet()->getCell('D'.$i)->getCalculatedValue();
-		}		
+			$id = $objPHPExcel->getActiveSheet()->getCell('A'.$i)->getCalculatedValue();
+			$precioSinPunto = str_replace('.',"",$objPHPExcel->getActiveSheet()->getCell('D'.$i)->getCalculatedValue());
+			$precio = str_replace(',',".",$precioSinPunto);
+			$desc = str_replace("'","''",$description);
+			//inserta en la tabla
+			$sql = "insert into productos (id,codigo,descripcion,precio)";
+			$sql .= " values('$id','$codigoProd','$desc','$precio')";
+			$result = $mysqli->query($sql);
+			if (!$result){ 
+				echo $sql.'<br>';}
+			}		
 	}
-
-	foreach($_DATOS_EXCEL as $campo => $valor){
-		$id = $valor['id'];
-		$cod = $valor['codigo'];
-		$desc = $valor['descripcion'];
-		$precioSinPunto = str_replace('.',"",$valor['precio']);
-		$precio = str_replace(',',".",$precioSinPunto);
-		$sql = "insert into productos (id,codigo,descripcion,precio)";
-		$sql .= " values($id,'$cod','$desc','$precio')";
-		$result = $mysqli->query($sql);
-		if (!$result){ 
-			echo $sql.'<br>';}
-		}
 
 	//inicio csv
 	/*$handle = fopen('files/'.$file, "r");

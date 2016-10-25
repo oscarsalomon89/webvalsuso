@@ -9,24 +9,20 @@
 <div class="row">
 <div class="col-md-2">
 </div>
-<div class="col-md-8">
+<div class="col-md-8 jumbotron">
 <div class="row">
       <div class="col-xs-1">
       </div>
-      <div class="col-xs-5">
-        <label for="search">Search:</label>
-        <input ng-model="vm.q" id="search" class="form-control" placeholder="Filter text">
-      </div>
-      <div class="col-xs-5">
-        <label for="search">users per page:</label>
-        <input type="number" min="1" max="20" class="form-control" ng-model="vm.pageSize">
+      <div class="col-xs-10">
+        <label for="search">Busqueda:</label>
+        <input ng-model="vm.q" id="search" class="form-control" placeholder="Busqueda por nombre">
       </div>
       <div class="col-xs-1">
       </div>
     </div>
 <br>
-<div class="widget-content-white glossed jumbotron" ng-init="vm.cargarUsuarios()">
-    <table style="color:black;padding:10px;" class="table table-condensed">
+<div class="widget-content-white glossed" ng-init="vm.cargarUsuarios()">
+    <table class="table table-condensed">
             <thead>
                <tr>
                   <th> Cliente </th>

@@ -5,6 +5,7 @@ angular.module("app")
    vm.name = '';
    vm.password = '';
    vm.users = [];
+   vm.pageSize = 10;
 
 clientesFactory.getAuth();    
 
