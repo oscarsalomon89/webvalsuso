@@ -5,9 +5,27 @@ angular.module("app")
    vm.name = '';
    vm.password = '';
    vm.users = [];
+   vm.productos = [];
    vm.pageSize = 10;
+   vm.urlAdmin = 'admin/clientes.html';
 
 clientesFactory.getAuth();    
+
+vm.cargarVista = function(vista){
+  if(vista == 1){
+      $("#produc").removeClass("activo");
+      $("#client").addClass(" activo");
+      $("#search").focus();
+      vm.urlAdmin = 'admin/clientes.html';
+      vm.cargarUsuarios();
+  }else{
+      $("#search").focus();
+      $("#produc").addClass(" activo");
+      $("#client").removeClass("activo");
+      vm.urlAdmin = 'admin/productos.html';
+      vm.obtenerProductos();
+  }
+}
 
 vm.uploadFile = function() {
     var file = vm.file;
@@ -57,6 +75,26 @@ vm.uploadFile = function() {
       success(function(data) {
          if(typeof(data) == 'object'){
             vm.users = data;
+         }else{            
+            alert('Error al intentar recuperar los clientes.');
+         }
+      }).
+      error(function() {
+         alert('Error al intentar recuperar los clientes.');
+      });
+   };
+
+   vm.obtenerProductos = function(){      
+      $http({
+         method: 'POST', 
+         url: '../controllers/productos.php',
+         data: {
+            auth: 1        
+        }
+      }).
+      success(function(data) {
+         if(typeof(data) == 'object'){
+            vm.productos = data;
          }else{            
             alert('Error al intentar recuperar los clientes.');
          }

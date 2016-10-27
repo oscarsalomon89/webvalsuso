@@ -5,140 +5,18 @@
         	<div class="row content-bg">
             	<div class="wrapper">				
                 	<article>
-                        <div class="row">
-                            <div class="col-1-2">
-                                <button style="float:right;" class="btn btn-primary">REOUESTOS</button>
-                            </div>
-                            <div class="col-1-2">
-                                <button class="btn btn-primary">HIDRÁULICA</button>
-                            </div>
-                        
-                        </div>
-                    	<h2>Nuestros productos:</h2>
-                        <div class="row hr-border-1">
-                            	<div class="col-1-6">
-									<div class="wrap-col">
-                                    	<img src="../public/images/productos/cilindros.jpg" class="img-indent-bot" alt="">
-                                        <dl class="def-list-1">
-                                            <dt>
-                                                CILINDRO
-                                            </dt>                              
-                                        </dl>
-									</div>
-                                </div>
-                                <div class="col-1-6">
-									<div class="wrap-col">
-                                    	<img src="../public/images/productos/columnavh.jpg" class="img-indent-bot" alt="">
-                                        <dl class="def-list-1">
-                                            <dt>
-                                                COLUMNA VH
-                                            </dt>                              
-                                        </dl>
-									</div>
-                                </div>
-								<div class="col-1-6">
-									<div class="wrap-col">
-                                    	<img src="../public/images/productos/deposito.jpg" class="img-indent-bot" alt="">
-                                        <dl class="def-list-1">
-                                            <dt>
-                                                DEPOSITO
-                                            </dt>                              
-                                        </dl>
-									</div>
-                                </div> 				
-                                <div class="col-1-6">
-									<div class="wrap-col">
-                                    	<img src="../public/images/productos/DireccionesHidraulicas.jpg" class="img-indent-bot" alt="">
-                                        <dl class="def-list-1">
-                                            <dt>
-                                                Direcciones Hidraulicas
-                                            </dt>                              
-                                        </dl>
-									</div>
-                                </div>                        					
-								<div class="col-1-6">
-									<div class="wrap-col">
-                                    	<img src="../public/images/productos/Portafiltros.jpg" class="img-indent-bot" alt="">
-                                        <dl class="def-list-1">
-                                            <dt>
-                                                Portafiltros
-                                            </dt>                              
-                                        </dl>
-									</div>
-                                </div>
-								<div class="col-1-6">
-									<div class="wrap-col">
-                                    	<img src="../public/images/productos/bombasHidraulicas.jpg" class="img-indent-bot" alt="">
-                                        <dl class="def-list-1">
-                                            <dt>
-                                                Bombas Hidraulicas
-                                            </dt>                              
-                                        </dl>   
-									</div>
-                                </div>
-                            </div>	
-                            <div class="row hr-border-1">
-                                <div class="col-1-6">
-                                    <div class="wrap-col">
-                                        <img src="../public/images/productos/SoportesParaReformasDeDireccion.jpg" class="img-indent-bot" alt="">
-                                        <dl class="def-list-1">
-                                            <dt>
-                                                Soportes ParaReformas De Direccion
-                                            </dt>                              
-                                        </dl>
-                                    </div>
-                                </div>
-                                <div class="col-1-6">
-                                    <div class="wrap-col">
-                                        <img src="../public/images/productos/TerminalesHidraulicos.jpg" class="img-indent-bot" alt="">
-                                        <dl class="def-list-1">
-                                            <dt>
-                                                Terminales Hidraulicos
-                                            </dt>                              
-                                        </dl>
-                                    </div>
-                                </div>
-                                <div class="col-1-6">
-                                    <div class="wrap-col">
-                                        <img src="../public/images/productos/ValvulasEspeciales.jpg" class="img-indent-bot" alt="">
-                                        <dl class="def-list-1">
-                                            <dt>
-                                                Valvulas Especiales
-                                            </dt>                              
-                                        </dl>
-                                    </div>
-                                </div>              
-                                <div class="col-1-6">
-                                    <div class="wrap-col">
-                                        <img src="../public/images/productos/DireccionesHidraulicas.jpg" class="img-indent-bot" alt="">
-                                        <dl class="def-list-1">
-                                            <dt>
-                                                Direcciones Hidraulicas
-                                            </dt>                              
-                                        </dl>
-                                    </div>
-                                </div>                                          
-                                <div class="col-1-6">
-                                    <div class="wrap-col">
-                                        <img src="../public/images/productos/AcoplesHidraulicos.jpg" class="img-indent-bot" alt="">
-                                        <dl class="def-list-1">
-                                            <dt>
-                                                Acoples Hidraulicos
-                                            </dt>                              
-                                        </dl>
-                                    </div>
-                                </div>
-                                <div class="col-1-6">
-                                    <div class="wrap-col">
-                                        <img src="../public/images/productos/ValvulasDeComando.jpg" class="img-indent-bot" alt="">
-                                        <dl class="def-list-1">
-                                            <dt>
-                                                Valvulas De Comando
-                                            </dt>                              
-                                        </dl>   
-                                    </div>
-                                </div>
-                            </div>		                            
+                        <h2>Nuestros productos:</h2>
+                        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                          <div class="btn-group" role="group">
+                            <button ng-click="vm.cargarVista(1)" id="rep" type="button" class="btn btn-default activo">
+                              <img src="../public/images/productos/banners3.png" class="img-indent-bot" alt=""><b>REPUESTOS</b></button>
+                          </div>
+                          <div class="btn-group" role="group">
+                            <button id="hid" ng-click="vm.cargarVista(2)" type="button" class="btn btn-default">
+                              <img src="../public/images/productos/banners2.png" class="img-indent-bot" alt=""><b>HIDRAULICA</b></button>
+                          </div>
+                        </div>                    	
+                        <ng-include src="vm.urlAdmin"></ng-include> 
                     </article>
                 </div>
             </div>

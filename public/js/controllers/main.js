@@ -58,7 +58,7 @@ angular.module("app", ["ngRoute",'angularUtils.directives.dirPagination'])
                 templateUrl: "web/ubicacion.html"
             })
             .when("/contactos", {
-                controller: "mainController",
+                controller: "contactosController",
                 controllerAs: "vm",
                 templateUrl: "web/contactos.html"
             })

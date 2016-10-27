@@ -107,7 +107,7 @@ h6{font-size:20px; line-height:24px;}
 		margin:0 0 0 6px;
 	}
 
-strong {color:#b30404;}
+strong {color:#232222;}
 .str-1 {
 	font-weight:normal;
 	text-transform:uppercase;
@@ -604,4 +604,16 @@ float: right;}
   }
   #contact-form1{
 	max-width: 90%;
+  }
+
+  .activo{
+  	color: #fff;
+    background-color: #353535;
+    border-color: #353535;
+  }
+
+  .activo:hover{
+  	color: #fff;
+    background-color: #353535;
+    border-color: #353535;
   }
