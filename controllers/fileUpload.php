@@ -47,14 +47,27 @@ if($file && move_uploaded_file($_FILES["file"]["tmp_name"], "files/".$file)){
 	/*$handle = fopen('files/'.$file, "r");
 	while (($data = fgetcsv($handle,1000,";")) !== FALSE){	 
 	//verificamos que la información no sean los nombre de las columnas.
-		if(strtoupper($data[0]) != "NOMBRES"){
-		//Insertamos los datos con los valores...
-		$sql = "insert into productos (codigo,descripcion,precio)";
-		$sql .= " values('$data[0]','$data[1]','$data[2]')";
-		$result = $mysqli->query($sql);
-		//mandamos a guardar en la base de datos. tabla productos.
-		}
-	}*/
+		if($data[3] != "Precio"){
+			//mandamos a guardar en la base de datos. tabla productos.
+			$codigoProd = utf8_decode($data[1]);
+			$description = utf8_decode($data[2]);
+
+			if($codigoProd != '' && $description != ''){
+				$id = $data[0];
+				$precioSinPunto = str_replace('.',"",$data[3]);			
+				$precio = str_replace(',',".",$precioSinPunto);
+				$desc = str_replace("'","''",$description);
+				//inserta en la tabla
+				$sql = "insert into productos (id,codigo,descripcion,precio)";
+				$sql .= " values('$id','$codigoProd','$desc','$precio')";
+				$result = $mysqli->query($sql);
+				if (!$result){ 
+					echo $sql.'<br>';
+					}
+				}			
+			}
+		}*/
+	//}
 	//cerramos la lectura del archivo "abrir archivo" con un "cerrar archivo"
 	//fclose($handle);
 	//Fin csv

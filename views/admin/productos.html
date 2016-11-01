@@ -1,17 +1,22 @@
 <div class="row">
-
-      <div class="col-xs-1">
-      </div>
-      <div class="col-xs-10">
-        <input style="display:initial;" type="file" name="file" file-model="vm.file" />
-<button class="btn btn-primary btn-sm" ng-click="vm.uploadFile()">Subir</button>
-        <br>
-        <label for="search">Busqueda:</label>
-        <input ng-model="vm.q" id="search" class="form-control" placeholder="Busqueda por codigo o descripcion">
-      </div>
-      <div class="col-xs-1">
-      </div>
+  <div class="col-xs-1">
+  </div>
+  <div class="col-xs-10">
+    <div ng-style="vm.cargando === 0? {'display':''} : {'display':'none'}">
+    <input style="display:initial;" type="file" name="file" file-model="vm.file" />
+    <button class="btn btn-primary btn-sm" ng-click="vm.uploadFile()">Subir</button>
     </div>
+    <div ng-style="vm.cargando === 1 ? {'display':''} : {'display':'none'}">
+      <img style="width:70px;" src="../public/images/cargando.gif" alt="">
+      Espere un momento mientras se carga el listado
+    </div>
+    <br>
+    <label for="search">Busqueda:</label>
+    <input ng-model="vm.q" id="search" class="form-control" placeholder="Busqueda por codigo o descripcion">
+  </div>
+  <div class="col-xs-1">
+  </div>
+</div>
     <br>
 <div class="widget-content-white glossed">
     <table class="table table-bordered">
@@ -21,6 +26,7 @@
                   <th> Descripcion </th>
                   <th> Precio </th>
                   <th> </th>
+                  <th> </th>
                </tr>
             </thead>
             <tbody>
@@ -28,7 +34,14 @@
                    <td> {{item.codigo}} </td>
                    <td> {{item.descripcion}} </td>
                    <td> {{item.precio}}</td>
-                   <td>  </td>
+                   <td>                    
+                    <a ng-click="vm.cargarVistaImagen(item.codigo)">
+                      <img src="../public/images/iconos/upload.png" alt="">
+                    </a>
+                  </td>
+                  <td>
+                    <a ng-click="vm.uploadFile()"><img src="../public/images/iconos/camera.png" alt=""></a>
+                  </td>
                  </tr>
               </tbody>
            </table>

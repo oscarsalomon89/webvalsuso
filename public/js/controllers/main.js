@@ -15,18 +15,18 @@ angular.module("app", ["ngRoute",'angularUtils.directives.dirPagination'])
             };
          }])
 .service('fileUpload', ['$http', function ($http) {
-            this.uploadFileToUrl = function(file, uploadUrl){
+            this.uploadFileToUrl = function(file,uploadUrl){
                var fd = new FormData();
                fd.append('file', file);
-               var res;
-
                $http.post(uploadUrl, fd, {
                   transformRequest: angular.identity,
                   headers: {'Content-Type': undefined}
                })            
                .success(function(result){
-                  console.log(result);
-                  return true;
+                  alert(result);
+                  //vm.file = null;
+                  //vm.cargando = 0;
+                  return;
                })            
                .error(function(){
                   return false;

@@ -8,6 +8,7 @@ angular.module("app")
    vm.productos = [];
    vm.pageSize = 10;
    vm.urlAdmin = 'admin/clientes.html';
+   vm.cargando = 0;
 
 clientesFactory.getAuth();    
 
@@ -29,14 +30,14 @@ vm.cargarVista = function(vista){
 
 vm.uploadFile = function() {
     var file = vm.file;
-     
+     vm.cargando = 1;
      var uploadUrl = "../controllers/fileUpload.php";
      var resul = fileUpload.uploadFileToUrl(file, uploadUrl);
-     alert(resul);
-     if(resul){
+
+     /*if(resul){
         alert('El archivo se subio correctamente');
         vm.file = null;
-     }
+     }*/
      
     }
 
@@ -237,6 +238,35 @@ vm.uploadFile = function() {
           vm.name = document.getElementById('user').value;
           vm.password = document.getElementById('password').value;
           vm.guardarUsuario();        
+      })
+  }
+
+  vm.cargarVistaImagen = function(cod) {
+      vm._id = null;
+      swal({
+        title: '<strong>Carga Imagen</strong>',
+        html:'<form enctype="multipart/form-data" id="formuploadajax" method="post">'+
+          '<input style="display:initial;" type="file" name="file" id="fotoProd" /></form>',
+        showCloseButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Subir',
+        cancelButtonText: 'Cancelar'
+      }).then(function() { 
+            var f = $(this);
+            var formData = new FormData(document.getElementById("formuploadajax"));
+            formData.append("dato", "valor");
+            //formData.append(f.attr("name"), $(this)[0].files[0]);
+            $.ajax({
+                url: "../controllers/fotoUpload.php",
+                type: "post",
+                dataType: "html",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false
+            }).done(function(res){
+                    alert(res);
+                }); 
       })
   }
 

@@ -4,14 +4,29 @@
 	<div class="content-bg">	
 <h1>Seccion Clientes</h1> 
 <div class="row">
-<div class="col-md-2">
+<div class="col-md-1">
 </div>
-<div class="col-md-8 jumbotron">
+<div style="color:black;" class="col-md-10 jumbotron">
 	<div class="row">
     <div class="col-xs-1">
     </div>
     <div class="col-xs-10">
-      <label for="search">Busqueda:</label>
+      <div class="row">
+        <div class="col-xs-1">
+          </div>
+        <div class="col-xs-4">
+          <input type="radio" name="radioBusqueda" id="busqCodigo">
+          &nbsp;&nbsp;<label for="search">Buscar por código</label>
+          </div>
+          <div class="col-xs-1">
+          </div>
+          <div class="col-xs-4">
+            <input type="radio" name="radioBusqueda" id="busqNombre">
+      &nbsp;&nbsp;<label for="search">Buscar por descripción</label>
+          </div>
+          <div class="col-xs-1">
+          </div>
+      </div>   
       <input ng-model="vm.q" id="search" class="form-control" placeholder="Filter text">
     </div>
     <div class="col-xs-1">
@@ -33,7 +48,7 @@
                    <td> {{item.codigo}} </td>
                    <td> {{item.descripcion}} </td>
                    <td> {{item.precio}}</td>
-                   <td>  </td>
+                   <td> <a ng-click="vm.uploadFile()"><img src="../public/images/iconos/camera.png" alt=""></a> </td>
                  </tr>
               </tbody>
            </table>
@@ -45,7 +60,7 @@
         </div>
 </div>
 </div>
-<div class="col-md-2">
+<div class="col-md-1">
 </div>
 </div>
 
