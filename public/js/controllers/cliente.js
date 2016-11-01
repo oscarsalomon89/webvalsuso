@@ -58,11 +58,29 @@ angular.module("app")
    };
 
    vm.cargarProductos = function(){
+      var tipoBusqueda = 0;
+      if($("#busqCodigo").is(':checked')) {  
+             tipoBusqueda = 1; 
+        } else {  
+            if($("#busqNombre").is(':checked')) {  
+             tipoBusqueda = 2; 
+          }else{
+            swal(
+                'Error!',
+                'Debe seleccionar un tipo de busqueda (código o descripción)!',
+                'success'
+              )
+            return;
+          }  
+        }
+ 
       $http({
          method: 'POST', 
          url: '../controllers/productos.php',
          data: {
-            auth: 1        
+            auth: 2,
+            tipo: tipoBusqueda,
+            valor: vm.texto      
         }
       }).
       success(function(data) {
@@ -76,5 +94,17 @@ angular.module("app")
          alert('Error al intentar recuperar los clientes.');
       });
    };
+
+   vm.abrirImagen = function(cod,desc,archivo){
+    swal({
+      text: cod+' - '+desc,
+      imageUrl: '/webvalsuso/public/images/productos/'+cod+'/'+archivo,
+      imageWidth: 400,
+      imageHeight: 400,
+      animation: false,
+      showCloseButton: true,
+      showConfirmButton: false
+    })
+  }
 
 });

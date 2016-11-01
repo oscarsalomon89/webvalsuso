@@ -11,8 +11,22 @@ if ($mysqli->connect_errno) {
     exit();
 }
 
+$filtro = $obj->auth;
+$where = '';
+
+if($filtro == 2){
+	$tipo = $obj->tipo;
+	$val = $obj->valor;
+	$where = ' WHERE ';
+	if($tipo == 1){
+		$where .= "codigo = '".$val."'";
+	}else{
+		$where .= "descripcion like '".$val."'";
+	}
+}
+
 $rows=array();
-$sql = "SELECT * FROM productos"; 
+$sql = "SELECT * FROM productos".$where; 
 $result = $mysqli->query($sql);  
 
 while($row = $result->fetch_array(MYSQLI_ASSOC)){

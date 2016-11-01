@@ -40,7 +40,7 @@
                     </a>
                   </td>
                   <td>
-                    <a ng-click="vm.uploadFile()"><img src="../public/images/iconos/camera.png" alt=""></a>
+                    <a ng-style="item.imagen != null? {'display':''} : {'display':'none'}" ng-click="vm.abrirImagen(item.codigo,item.descripcion,item.imagen)"><img src="../public/images/iconos/camera.png" alt=""></a>
                   </td>
                  </tr>
               </tbody>

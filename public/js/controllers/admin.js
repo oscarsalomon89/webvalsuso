@@ -246,7 +246,8 @@ vm.uploadFile = function() {
       swal({
         title: '<strong>Carga Imagen</strong>',
         html:'<form enctype="multipart/form-data" id="formuploadajax" method="post">'+
-          '<input style="display:initial;" type="file" name="file" id="fotoProd" /></form>',
+          '<input style="display:initial;" type="file" name="file" id="fotoProd" />'+
+          '<input type="hidden" name="codigo" id="codigo" value="'+cod+'"/></form>',
         showCloseButton: true,
         showCancelButton: true,
         confirmButtonText: 'Subir',
@@ -265,9 +266,33 @@ vm.uploadFile = function() {
                 contentType: false,
                 processData: false
             }).done(function(res){
-                    alert(res);
+                    if(res == 'exito'){
+                      swal(
+                        'Exito!',
+                        'La foto se subió correctamente!',
+                        'success'
+                      )
+                      vm.obtenerProductos();
+                    }else{
+                      swal(
+                        'Error!',
+                        res
+                      )
+                    }                    
                 }); 
       })
+  }
+
+  vm.abrirImagen = function(cod,desc,archivo){
+    swal({
+      text: cod+' - '+desc,
+      imageUrl: '/webvalsuso/public/images/productos/'+cod+'/'+archivo,
+      imageWidth: 400,
+      imageHeight: 400,
+      animation: false,
+      showCloseButton: true,
+      showConfirmButton: false
+    })
   }
 
 });
