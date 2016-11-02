@@ -6,7 +6,7 @@ angular.module("app")
     vm.autenticarUsuario = function(){
       $http({
          method: 'POST', 
-         url: '../controllers/login.php', 
+         url: 'controllers/login.php', 
          data: {
             name: vm.name,
             password: vm.password,

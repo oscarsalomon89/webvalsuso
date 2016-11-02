@@ -7,7 +7,7 @@
     <button class="btn btn-primary btn-sm" ng-click="vm.uploadFile()">Subir</button>
     </div>
     <div ng-style="vm.cargando === 1 ? {'display':''} : {'display':'none'}">
-      <img style="width:70px;" src="../public/images/cargando.gif" alt="">
+      <img style="width:70px;" src="public/images/cargando.gif" alt="">
       Espere un momento mientras se carga el listado
     </div>
     <br>
@@ -36,18 +36,18 @@
                    <td> {{item.precio}}</td>
                    <td>                    
                     <a ng-click="vm.cargarVistaImagen(item.codigo)">
-                      <img src="../public/images/iconos/upload.png" alt="">
+                      <img src="public/images/iconos/upload.png" alt="">
                     </a>
                   </td>
                   <td>
-                    <a ng-style="item.imagen != null? {'display':''} : {'display':'none'}" ng-click="vm.abrirImagen(item.codigo,item.descripcion,item.imagen)"><img src="../public/images/iconos/camera.png" alt=""></a>
+                    <a ng-style="item.imagen != null? {'display':''} : {'display':'none'}" ng-click="vm.abrirImagen(item.codigo,item.descripcion,item.imagen)"><img src="public/images/iconos/camera.png" alt=""></a>
                   </td>
                  </tr>
               </tbody>
            </table>
       <div class="other-controller">
           <div class="text-center">
-          <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="dirPagination.tpl.html">
+          <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="views/dirPagination.tpl.html">
         </dir-pagination-controls>
           </div>
         </div>

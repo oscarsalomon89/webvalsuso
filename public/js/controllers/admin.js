@@ -7,7 +7,7 @@ angular.module("app")
    vm.users = [];
    vm.productos = [];
    vm.pageSize = 10;
-   vm.urlAdmin = 'admin/clientes.html';
+   vm.urlAdmin = 'views/admin/clientes.html';
    vm.cargando = 0;
 
 clientesFactory.getAuth();    
@@ -17,13 +17,13 @@ vm.cargarVista = function(vista){
       $("#produc").removeClass("activo");
       $("#client").addClass(" activo");
       $("#search").focus();
-      vm.urlAdmin = 'admin/clientes.html';
+      vm.urlAdmin = 'views/admin/clientes.html';
       vm.cargarUsuarios();
   }else{
       $("#search").focus();
       $("#produc").addClass(" activo");
       $("#client").removeClass("activo");
-      vm.urlAdmin = 'admin/productos.html';
+      vm.urlAdmin = 'views/admin/productos.html';
       vm.obtenerProductos();
   }
 }
@@ -31,7 +31,7 @@ vm.cargarVista = function(vista){
 vm.uploadFile = function() {
     var file = vm.file;
      vm.cargando = 1;
-     var uploadUrl = "../controllers/fileUpload.php";
+     var uploadUrl = "controllers/fileUpload.php";
      var resul = fileUpload.uploadFileToUrl(file, uploadUrl);
 
      /*if(resul){
@@ -44,7 +44,7 @@ vm.uploadFile = function() {
     vm.salir = function(){
       $http({
          method: 'POST', 
-         url: '../controllers/login.php', 
+         url: 'controllers/login.php', 
          data: {
             auth: 2           
         }
@@ -68,7 +68,7 @@ vm.uploadFile = function() {
    vm.cargarUsuarios = function(){
       $http({
          method: 'POST', 
-         url: '../controllers/clientes.php',
+         url: 'controllers/clientes.php',
          data: {
             auth: 1        
         }
@@ -88,7 +88,7 @@ vm.uploadFile = function() {
    vm.obtenerProductos = function(){      
       $http({
          method: 'POST', 
-         url: '../controllers/productos.php',
+         url: 'controllers/productos.php',
          data: {
             auth: 1        
         }
@@ -108,7 +108,7 @@ vm.uploadFile = function() {
    vm.guardarUsuario = function() {
       $http({
          method: 'POST',
-         url: '../controllers/clientes.php',
+         url: 'controllers/clientes.php',
          data: {
             name: vm.name,
             password: vm.password,
@@ -143,7 +143,7 @@ vm.uploadFile = function() {
    vm.recuperarUsuario = function(indice) {
       $http({
          method: 'POST',
-         url: '../controllers/clientes.php',
+         url: 'controllers/clientes.php',
          data: {
             id: indice,
             auth : 3
@@ -258,7 +258,7 @@ vm.uploadFile = function() {
             formData.append("dato", "valor");
             //formData.append(f.attr("name"), $(this)[0].files[0]);
             $.ajax({
-                url: "../controllers/fotoUpload.php",
+                url: "controllers/fotoUpload.php",
                 type: "post",
                 dataType: "html",
                 data: formData,

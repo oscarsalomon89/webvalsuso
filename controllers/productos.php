@@ -21,7 +21,7 @@ if($filtro == 2){
 	if($tipo == 1){
 		$where .= "codigo = '".$val."'";
 	}else{
-		$where .= "descripcion like '".$val."'";
+		$where .= "descripcion like '%".$val."%'";
 	}
 }
 

@@ -34,58 +34,58 @@ angular.module("app", ["ngRoute",'angularUtils.directives.dirPagination'])
             }
          }])
     .config(function($routeProvider,$locationProvider){
-      //$locationProvider.html5Mode(true);
+      $locationProvider.html5Mode(true);
 
         $routeProvider
             .when("/", {
                 controller: "mainController",
                 controllerAs: "vm",
-                templateUrl: "web/inicio.html"
+                templateUrl: "views/web/inicio.html"
+            })
+            .when("/inicio", {
+                controller: "mainController",
+                controllerAs: "vm",
+                templateUrl: "views/web/inicio.html"
             })
             .when("/productos", {
                 controller: "productosController",
                 controllerAs: "vm",
-                templateUrl: "web/productos.html"
+                templateUrl: "views/web/productos.html"
             })
             .when("/servicios", {
                 controller: "productosController",
                 controllerAs: "vm",
-                templateUrl: "web/servicios.html"
+                templateUrl: "views/web/servicios.html"
             })
             .when("/ubicacion", {
                 controller: "mainController",
                 controllerAs: "vm",
-                templateUrl: "web/ubicacion.html"
+                templateUrl: "views/web/ubicacion.html"
             })
             .when("/contactos", {
                 controller: "contactosController",
                 controllerAs: "vm",
-                templateUrl: "web/contactos.html"
+                templateUrl: "views/web/contactos.html"
             })
             .when("/login", {
                 controller: "loginController",
                 controllerAs: "vm",
-                templateUrl: "clientes/login/index.html"
+                templateUrl: "views/clientes/login/index.html"
             })
             .when("/clientes", {
                 controller: "clienteController",
                 controllerAs: "vm",
-                templateUrl: "web/clientes.html"
+                templateUrl: "views/web/clientes.html"
             })
             .when("/usuarios", {
                 controller: "clienteController",
                 controllerAs: "vm",
-                templateUrl: "clientes/productos/index.html"
+                templateUrl: "views/clientes/productos/index.html"
             })
             .when("/admin", {
                 controller: "adminController",
                 controllerAs: "vm",
-                templateUrl: "admin/index.html"
-            })
-            .when("/categorias", {
-                controller: "categoryController",
-                controllerAs: "vm",
-                templateUrl: "categorias"
+                templateUrl: "views/admin/index.html"
             });
     })
     .factory("clientesFactory", function($http,$location){
@@ -94,7 +94,7 @@ angular.module("app", ["ngRoute",'angularUtils.directives.dirPagination'])
             getAuth: function(){
                 $http({
                  method: 'POST', 
-                 url: '../controllers/login.php',
+                 url: 'controllers/login.php',
                  data: {
                     auth: 0          
                 }
@@ -137,7 +137,7 @@ angular.module("app", ["ngRoute",'angularUtils.directives.dirPagination'])
 
       vm.openPicture = function(image) {
         swal({
-          imageUrl: '../public/images/'+image,
+          imageUrl: 'public/images/'+image,
           text: 'Modal with a custom image.',
           imageWidth: 400,
           imageHeight: 200,

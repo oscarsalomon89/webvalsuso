@@ -7,7 +7,7 @@ angular.module("app")
     $("#ubi").removeClass( "current" );
     $("#cont").removeClass( "current" );
     $("#cli").removeClass( "current" );
-    vm.urlAdmin = 'web/repuestos.html'
+    vm.urlAdmin = 'views/web/repuestos.html'
 
     vm.cargarVista = function(vista){
 	  if(vista == 1){
@@ -19,7 +19,7 @@ angular.module("app")
 	  		$("#hid").blur();
 	      $("#hid").addClass(" activo");
 	      $("#rep").removeClass("activo");
-	      vm.urlAdmin = 'web/hidraulica.html';
+	      vm.urlAdmin = 'views/web/hidraulica.html';
 	  }
 	}
 });
