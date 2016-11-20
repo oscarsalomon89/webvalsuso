@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="app">
 <head>
-  	<title>Inicio</title>
+  	<title>Valsuso S.R.L</title>
     <base href="/webvalsuso/">
   	<meta charset="utf-8">
-    <meta name="description" content="Your description">
-    <meta name="keywords" content="Your keywords">
-    <meta name="author" content="Your name">
+    <meta name="description" content="VALSUSO S.R.L: Comercialización de productos oleohidráulicos y repuestos de tractores y máquinas agrícolas en general">
+    <meta name="keywords" content="Valsuso srl tractores hidraulica">
+    <meta name="author" content="oas">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<meta http-equiv='X-UA-Compatible' content='IE=8'>
-	<link rel="shortcut icon" href="public/images/tractor.gif"/>
+	<link rel="shortcut icon" href="public/images/logo.gif"/>
 	<link rel="stylesheet" href="public/css/normalize.css" />
     <link rel="stylesheet" href="public/css/bootstrap.min.css">
     <link rel="stylesheet" href="public/css/style.css">    
@@ -38,11 +38,12 @@
 		<div class="nav-responsive"><div>MENU</div>
 			<select onchange="location=this.value">
 				<option></option>
-				<option value="#/">Inicio</option>
-				<option value="#/productos">Productos</option>
-				<option value="#/ubicacion">Ubicacion</option>
-				<option value="#/contactos">Contactos</option>
-				<option value="#/clientes">Clientes</option>
+				<option value="inicio">Inicio</option>
+				<option value="productos">Productos</option>
+                <option value="servicios">Servicios</option>
+				<option value="ubicacion">Ubicacion</option>
+				<option value="contactos">Contactos</option>
+				<option value="clientes">Clientes</option>
 			</select>
 		</div>
     	<div class="inner">
@@ -51,7 +52,7 @@
                 <ul class="sf-menu">
                     <li id="ini"><a href="inicio">INICIO</a></li>
                     <li id="prod"><a href="productos">PRODUCTOS</a></li>
-                    <li id="prod"><a href="servicios">SERVICIOS</a></li>
+                    <li id="serv"><a href="servicios">SERVICIOS</a></li>
                     <li id="ubi"><a href="ubicacion">UBICACION</a></li>
                     <li id="cont"><a href="contactos">CONTACTOS</a></li>
 					<li id="cli"><a href="clientes">CLIENTES</a></li>
@@ -72,7 +73,7 @@
                         <div class="col-1-3">
 							<div class="wrap-col">
 	                        	<div class="copyright">
-	                            	&copy; 2016 <strong class="footer-logo">VALSUSO HIDRÁULICOS SRL</strong>
+	                            	&copy; 2016 <strong class="footer-logo">VALSUSO SRL</strong>
 	                                <div>
 									TEL: 03564 - 479078/479520<br>
 									CEL: 03564 - 15578048<br>
@@ -105,6 +106,8 @@
     <script src="public/js/controllers/cliente.js"></script>
     <script src="public/js/controllers/admin.js"></script>
     <script src="public/js/controllers/productos.js"></script>
+    <script src="public/js/controllers/servicios.js"></script>
+    <script src="public/js/controllers/ubicacion.js"></script>
     <script src="public/js/controllers/contactos.js"></script>
 </body>
 </html>

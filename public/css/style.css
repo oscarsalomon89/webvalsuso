@@ -336,6 +336,16 @@ header .inner {
 		margin:-40px 0 0 0;
 		font-size:70px;
 	}
+
+
+.mp-slider .mp-ban-2 .row-6 {
+		margin-top: 100px;
+		font-size:40px;
+		color: white;
+		background-color: #353535;
+		opacity: 0.8;
+	}
+
 	.mp-slider .mp-ban-2 .row-1 {
 		padding:35px 0 0 0;
 		font-size:93px;

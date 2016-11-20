@@ -26,7 +26,9 @@ if($filtro == 2){
 }
 
 $rows=array();
-$sql = "SELECT * FROM productos".$where; 
+$sql = "SELECT * FROM productos 
+			LEFT JOIN imagenes ON codigo = codigoProducto order by codigo ASC"
+			.$where; 
 $result = $mysqli->query($sql);  
 
 while($row = $result->fetch_array(MYSQLI_ASSOC)){

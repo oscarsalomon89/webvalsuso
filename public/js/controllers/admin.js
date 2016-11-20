@@ -29,16 +29,40 @@ vm.cargarVista = function(vista){
 }
 
 vm.uploadFile = function() {
-    var file = vm.file;
-     vm.cargando = 1;
-     var uploadUrl = "controllers/fileUpload.php";
-     var resul = fileUpload.uploadFileToUrl(file, uploadUrl);
+    var file = vm.file;    
 
-     /*if(resul){
-        alert('El archivo se subio correctamente');
-        vm.file = null;
-     }*/
-     
+    if(file != null && file != ''){
+      vm.cargando = 1;
+      var fd = new FormData();
+     fd.append('file', file);
+     $http.post("controllers/fileUpload.php", 
+                fd, {
+                  transformRequest: angular.identity,
+                  headers: {'Content-Type': undefined}
+               })            
+         .success(function(result){
+            swal(
+                  'Exito!',
+                  'El Archivo se subió correctamente!',
+                  'success'
+                );
+            $('#fileMobile').val('');
+            vm.cargando = 0;
+            vm.obtenerProductos();
+            return;
+         })            
+         .error(function(){
+            $('#fileMobile').val('');
+            vm.cargando = 0;
+            return false;
+         });
+       }else{
+        swal(
+              'Error!',
+              'Debe seleccionar un archivo para subir',
+              'warning'
+            );
+       }   
     }
 
     vm.salir = function(){
@@ -51,7 +75,7 @@ vm.uploadFile = function() {
       }).
       success(function(data) {
          if(data){
-            $location.url("/login");
+            $location.url("/clientes");
          }else{
             alert(data);
          }
@@ -181,26 +205,27 @@ vm.uploadFile = function() {
 
    vm.eliminarUsuario = function(indice) {
       swal({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        title: 'Esta seguro?',
+        text: "Si elimina el usuario no puede volver atras!",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: 'Si, eliminar!'
       }).then(function() {
          $http({
          method: 'POST',
-         url: '/eliminar',
+         url: 'controllers/clientes.php',
          data: {
-            _id: indice
+            id: indice,
+            auth: 4
          }
       }).
       success(function(data) {
-         if(data.error == false){
+         if(data){
             swal(
-                'Deleted!',
-                'Your file has been deleted.',
+                'Eliminado!',
+                'El cliente se elimino correctamente.',
                 'success'
               );
             vm.limpiarDatos();
@@ -241,7 +266,7 @@ vm.uploadFile = function() {
       })
   }
 
-  vm.cargarVistaImagen = function(cod) {
+  vm.cargarVistaImagen = function(cod,existe) {
       vm._id = null;
       swal({
         title: '<strong>Carga Imagen</strong>',
@@ -253,19 +278,17 @@ vm.uploadFile = function() {
         confirmButtonText: 'Subir',
         cancelButtonText: 'Cancelar'
       }).then(function() { 
-            var f = $(this);
             var formData = new FormData(document.getElementById("formuploadajax"));
             formData.append("dato", "valor");
-            //formData.append(f.attr("name"), $(this)[0].files[0]);
-            $.ajax({
-                url: "controllers/fotoUpload.php",
-                type: "post",
-                dataType: "html",
-                data: formData,
-                cache: false,
-                contentType: false,
-                processData: false
-            }).done(function(res){
+            //
+            var fd = new FormData(document.getElementById("formuploadajax"));
+            fd.append("dato", "valor");
+            $http.post("controllers/fotoUpload.php", 
+                fd, {
+                  transformRequest: angular.identity,
+                  headers: {'Content-Type': undefined}
+               })
+            .success(function(res){
                     if(res == 'exito'){
                       swal(
                         'Exito!',
@@ -283,16 +306,28 @@ vm.uploadFile = function() {
       })
   }
 
-  vm.abrirImagen = function(cod,desc,archivo){
-    swal({
-      text: cod+' - '+desc,
-      imageUrl: '/webvalsuso/public/images/productos/'+cod+'/'+archivo,
-      imageWidth: 400,
-      imageHeight: 400,
-      animation: false,
-      showCloseButton: true,
-      showConfirmButton: false
-    })
+  vm.abrirImagen = function(cod,desc){
+    $http({
+         method: 'POST',
+         url: 'controllers/verFoto.php',
+         data: {
+            carpeta: cod
+         }
+      }).
+      success(function(data) {
+         swal({
+            text: cod+' - '+desc,
+            imageUrl: '/webvalsuso/public/images/productos/'+cod+'/'+data,
+            imageWidth: 400,
+            imageHeight: 400,
+            animation: false,
+            showCloseButton: true,
+            showConfirmButton: false
+          })
+      }).
+      error(function() {
+         alert('Error al intentar cargar la foto.');
+      });   
   }
 
 });

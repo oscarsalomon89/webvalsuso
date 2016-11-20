@@ -31,7 +31,7 @@ switch ($obj->auth) {
         $id = $obj->id;
         $password = password_hash($obj->password,PASSWORD_DEFAULT);
         if(is_null($id)){
-            $sql="insert into clientes(name,password,rol)values('$name','$password',2)";
+            $sql="insert into clientes(name,password,rol,description)values('$name','$password',2,'Cliente')";
         }else{
             $sql="update clientes set name = '$name',password = '$password' 
                         WHERE id = ".$id;
@@ -48,6 +48,12 @@ switch ($obj->auth) {
         
         $json = json_encode($row);
         echo $json;
+        break;
+    case 4:
+        $id = $obj->id;
+        $sql = "DELETE FROM clientes WHERE id = '$id'"; 
+        $result = $mysqli->query($sql);
+        echo $result;
         break;
     default:
         if(!isset($_SESSION['userid'])){ 

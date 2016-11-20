@@ -53,12 +53,12 @@ angular.module("app", ["ngRoute",'angularUtils.directives.dirPagination'])
                 templateUrl: "views/web/productos.html"
             })
             .when("/servicios", {
-                controller: "productosController",
+                controller: "serviciosController",
                 controllerAs: "vm",
                 templateUrl: "views/web/servicios.html"
             })
             .when("/ubicacion", {
-                controller: "mainController",
+                controller: "ubicacionController",
                 controllerAs: "vm",
                 templateUrl: "views/web/ubicacion.html"
             })
@@ -118,6 +118,8 @@ angular.module("app", ["ngRoute",'angularUtils.directives.dirPagination'])
         $("#ubi").removeClass( "current" );
         $("#cont").removeClass( "current" );
         $("#cli").removeClass( "current" );
+        $("#serv").removeClass( "current" );
+
         $(document).ready(function(){
           $('.mp-slider')._TMS({
             show:0,

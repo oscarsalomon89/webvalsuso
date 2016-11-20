@@ -4,6 +4,13 @@ session_start();
 $json = file_get_contents('php://input');
 $obj = json_decode($json);
 
+$mysqli = new mysqli("localhost","root","lbdt14","webvalsuso");
+
+if ($mysqli->connect_errno) {
+    printf("Falló la conexión: %s\n", $mysqli->connect_error);
+    exit();
+}
+
 switch ($obj->auth) {
     case 1:
         $name = $obj->name;
@@ -11,12 +18,13 @@ switch ($obj->auth) {
         $cliente = array();
 
         $sql = "SELECT * FROM clientes WHERE name = '$name'"; 
-        $rec = mysql_query($sql);
-        $row = mysql_fetch_object($rec);
+        $result = $mysqli->query($sql);
+        $row = $result->fetch_array(MYSQLI_ASSOC);
+
         if($row){       
-            if(password_verify($password,$row->password)){
-                $_SESSION['rol']   = $row->rol;
-                $_SESSION['userid'] = $row->id;
+            if(password_verify($password,$row['password'])){
+                $_SESSION['rol']   = $row['rol'];
+                $_SESSION['userid'] = $row['id'];
                 $json = json_encode($row);
                 echo $json;
             }else{

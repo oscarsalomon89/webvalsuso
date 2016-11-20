@@ -3,12 +3,12 @@
   </div>
   <div class="col-xs-10">
     <div ng-style="vm.cargando === 0? {'display':''} : {'display':'none'}">
-    <input style="display:initial;" type="file" name="file" file-model="vm.file" />
+    <input style="display:initial;" type="file" id="fileMobile" name="file" file-model="vm.file" />
     <button class="btn btn-primary btn-sm" ng-click="vm.uploadFile()">Subir</button>
     </div>
     <div ng-style="vm.cargando === 1 ? {'display':''} : {'display':'none'}">
-      <img style="width:70px;" src="public/images/cargando.gif" alt="">
-      Espere un momento mientras se carga el listado
+      <img style="width:70px;" src="public/images/cargando.gif" alt="">      
+      <p style="display:inline;">Espere un momento mientras se carga el listado</p>
     </div>
     <br>
     <label for="search">Busqueda:</label>
@@ -40,7 +40,7 @@
                     </a>
                   </td>
                   <td>
-                    <a ng-style="item.imagen != null? {'display':''} : {'display':'none'}" ng-click="vm.abrirImagen(item.codigo,item.descripcion,item.imagen)"><img src="public/images/iconos/camera.png" alt=""></a>
+                    <a ng-style="item.existe != null && item.existe != ''? {'display':''} : {'display':'none'}" ng-click="vm.abrirImagen(item.codigo,item.descripcion)"><img src="public/images/iconos/camera.png" alt=""></a>
                   </td>
                  </tr>
               </tbody>

@@ -3,7 +3,6 @@
     <section id="content">
         <div class="zerogrid">
             	<div class="row content-bg">
-
                     	<article class="col-1-3">
 							<div class="wrap-col">
 	                        	<h2>Contactos:</h2>
@@ -35,25 +34,25 @@
                         <article class="col-2-3">
 							<div class="wrap-col">
 	                        	<h2>Consulta:</h2>
-	                            <form method="post" action="contacto.php">
+	                            <form method="post">
 	                              <fieldset>
 	                              	<div id="contact-form">
 	                                <label class="name">
 	                                	<span>Nombre:</span>
-										<input type="text" name="nombre">
+										<input type="text" ng-model="vm.nombre" name="nombre">
 	                                </label>
 	                                <label class="email">
 	                                  <span>Email:</span>
-	                                  <input type="email" name="mail" required>
+	                                  <input type="email" ng-model="vm.mail" name="mail" required>
 	                                </label>
 	                                <label class="message">
 	                                  <span>Mensaje:</span>	
-	                                  <textarea name="mensaje" required></textarea>
+	                                  <textarea ng-model="vm.mensaje" name="mensaje" required></textarea>
 	                                </label>
 	                                </div>
 	                                <br>
-	                                <div class="btns">	                                  
-	                                    <input type="submit" class="buttonLista" id="submit" value="Enviar"/> 
+	                                <div class="btns">                             
+	                                    <input type="button" class="buttonLista" id="submit" ng-click="vm.enviarCorreo()" value="Enviar"/> 
 	                                </div>
 	                              </fieldset>
 	                            </form>

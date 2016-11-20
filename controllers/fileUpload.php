@@ -16,6 +16,14 @@ if(!is_dir("files/"))
 if($file && move_uploaded_file($_FILES["file"]["tmp_name"], "files/".$file)){
 	//php excel
 	//$objReader = new PHPExcel_Reader_Excel2007();
+	ini_set('max_execution_time',360); //360 seconds = 6 minutes
+
+	//Elimino todas las filas anteriores
+	$sqlDelete = "TRUNCATE TABLE productos";
+	$resultado = $mysqli->query($sqlDelete);
+	if (!$resultado){ 
+		echo $sqlDelete.'<br>';}
+
 	$objReader = PHPExcel_IOFactory::createReader('Excel5');
 	$objPHPExcel = $objReader->load('files/'.$file);
 
@@ -26,12 +34,11 @@ if($file && move_uploaded_file($_FILES["file"]["tmp_name"], "files/".$file)){
 	$rows=$objPHPExcel->getActiveSheet()->getHighestRow();//cantidad de filas
 	
 	for ($i=2;$i<=$rows;$i++){
-		set_time_limit(20);
-		$codigoProd = $objPHPExcel->getActiveSheet()->getCell('B'.$i)->getCalculatedValue();
-		$description = $objPHPExcel->getActiveSheet()->getCell('C'.$i)->getCalculatedValue();
+		$codigoProd = $objPHPExcel->getActiveSheet()->getCell('B'.$i)->getValue();
+		$description = $objPHPExcel->getActiveSheet()->getCell('C'.$i)->getValue();
 		if($codigoProd != '' && $description != ''){
-			$id = $objPHPExcel->getActiveSheet()->getCell('A'.$i)->getCalculatedValue();
-			$precioSinPunto = str_replace('.',"",$objPHPExcel->getActiveSheet()->getCell('D'.$i)->getCalculatedValue());
+			$id = $objPHPExcel->getActiveSheet()->getCell('A'.$i)->getValue();
+			$precioSinPunto = str_replace('.',"",$objPHPExcel->getActiveSheet()->getCell('D'.$i)->getValue());
 			$precio = str_replace(',',".",$precioSinPunto);
 			$desc = str_replace("'","''",$description);
 			//inserta en la tabla

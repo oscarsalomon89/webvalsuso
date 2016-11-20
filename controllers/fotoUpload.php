@@ -12,18 +12,34 @@ $extension = end(explode('.',$file) );
 
 if ($extension == "png" || $extension == "jpeg" || $extension == "jpg"){
 	$dir = "../public/images/productos/".$codigo."/";
-	$nombreNuevo = $codigo.'.'.$extension;
 
-	if(!is_dir($dir))
+	if(!is_dir($dir)){
 		mkdir($dir, 0777);
-	if($file && move_uploaded_file($_FILES["file"]["tmp_name"], $dir.$nombreNuevo)){
-		//Archivo Subido
-		$sql = "update productos SET imagen = '".$nombreNuevo.
-				"' WHERE codigo = '".$codigo."'";
+	}else{
+		$ruta = "../public/images/productos/".$codigo."/"; // Indicar ruta
+		$filehandle = opendir($ruta); // Abrir archivos
 
-		$result = $mysqli->query($sql);
-		if (!$result)
-			echo $sql.'<br>';
+		while ($arch = readdir($filehandle)) {
+			if ($arch != '.' && $arch != '..') {
+				unlink($ruta.$arch);
+			}	
+		}
+	}
+		
+	if($file && move_uploaded_file($_FILES["file"]["tmp_name"], $dir.$file)){
+		//Archivo Subido
+		$sqlBus = "SELECT codigoProducto FROM imagenes WHERE codigoProducto = '$codigo'";
+
+		$resultado = $mysqli->query($sqlBus);
+
+		if (mysqli_num_rows($resultado)<=0){
+			$sql = "insert into imagenes(codigoProducto,existe)
+						values('$codigo',1)";
+
+			$result = $mysqli->query($sql);
+			if (!$result)
+				echo $sql.'<br>';
+			}		
 
 		echo 'exito';
 	}

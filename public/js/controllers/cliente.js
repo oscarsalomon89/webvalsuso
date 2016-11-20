@@ -11,6 +11,7 @@ angular.module("app")
     $("#ubi").removeClass( "current" );
     $("#cont").removeClass( "current" );
     $("#prod").removeClass( "current" );
+    $("#serv").removeClass( "current" );
 
     vm.autenticarUsuario = function(){
       $http({
@@ -48,7 +49,7 @@ angular.module("app")
       }).
       success(function(data) {
          if(data){
-            $location.url("/login");
+            $location.url("/clientes");
          }else{
             alert(data);
          }
@@ -113,16 +114,28 @@ angular.module("app")
       });
    };
 
-   vm.abrirImagen = function(cod,desc,archivo){
-    swal({
-      text: cod+' - '+desc,
-      imageUrl: '/webvalsuso/public/images/productos/'+cod+'/'+archivo,
-      imageWidth: 400,
-      imageHeight: 400,
-      animation: false,
-      showCloseButton: true,
-      showConfirmButton: false
-    })
+   vm.abrirImagen = function(cod,desc){
+    $http({
+         method: 'POST',
+         url: 'controllers/verFoto.php',
+         data: {
+            carpeta: cod
+         }
+      }).
+      success(function(data) {
+         swal({
+            text: cod+' - '+desc,
+            imageUrl: '/webvalsuso/public/images/productos/'+cod+'/'+data,
+            imageWidth: 400,
+            imageHeight: 400,
+            animation: false,
+            showCloseButton: true,
+            showConfirmButton: false
+          })
+      }).
+      error(function() {
+         alert('Error al intentar cargar la foto.');
+      });   
   }
 
 });

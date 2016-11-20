@@ -7,6 +7,7 @@ angular.module("app")
     $("#ubi").removeClass( "current" );
     $("#cont").removeClass( "current" );
     $("#cli").removeClass( "current" );
+    $("#serv").removeClass( "current" );
     vm.urlAdmin = 'views/web/repuestos.html'
 
     vm.cargarVista = function(vista){
@@ -14,7 +15,7 @@ angular.module("app")
 	  	  $("#rep").blur();
 	      $("#rep").addClass("activo");
 	      $("#hid").removeClass(" activo");
-	      vm.urlAdmin = 'web/repuestos.html';
+	      vm.urlAdmin = 'views/web/repuestos.html';
 	  }else{
 	  		$("#hid").blur();
 	      $("#hid").addClass(" activo");
