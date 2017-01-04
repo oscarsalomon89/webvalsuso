@@ -1,4 +1,4 @@
-	<section id="content">
+<section id="content">
 	<div class="zerogrid">
 	<div class="row content-bg">
 		<h2>Ingreso Clientes</h2>
@@ -13,13 +13,8 @@
 		    </div> 
 		    <div class="form-group">
 		    	<label>Password</label>
-		    	<input style="width:70%;" class="form-control" name="password" ng-model="vm.password" type="password" ng-keypress="vm.enterLogin($event)">
+		    	<input style="width:70%;" class="form-control" name="password" ng-model="vm.password" type="password">
 		    </div> 
-		    <div class="form-group">		    	
-		    	<input type="checkbox" ng-model="vm.recordar" name="recordar"> 
-		    	<label>No cerrar sesión
-		    	</label>
-		    	</div> 
 		         <div>
 		         <br>	                                  
 		          <input type="button" ng-click="vm.autenticarUsuario()" value="Ingresar" class="btn btn-primary"> 

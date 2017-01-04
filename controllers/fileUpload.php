@@ -11,8 +11,20 @@ if ($mysqli->connect_errno) {
 }
 
 $file = $_FILES["file"]["name"];
-if(!is_dir("files/"))
-	mkdir("files/", 0777);
+if(!is_dir("files/")){
+		mkdir("files/", 0777);
+	}else{
+		//elimino los archivos que esten en esa carpeta
+		$ruta = "files/";
+		$filehandle = opendir($ruta);
+
+		while ($arch = readdir($filehandle)) {
+			if ($arch != '.' && $arch != '..') {
+				unlink($ruta.$arch);
+			}	
+		}
+	}
+
 if($file && move_uploaded_file($_FILES["file"]["tmp_name"], "files/".$file)){
 	//php excel
 	//$objReader = new PHPExcel_Reader_Excel2007();

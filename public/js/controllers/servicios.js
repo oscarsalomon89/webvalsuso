@@ -8,4 +8,6 @@ angular.module("app")
     $("#cont").removeClass( "current" );
     $("#cli").removeClass( "current" );
     $("#prod").removeClass( "current" );
+
+    $("#navbar").removeClass( "in" );
 });

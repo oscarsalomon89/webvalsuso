@@ -2,38 +2,48 @@
 <div class="zerogrid"> 
   <a ng-click="vm.salir()" style="float:right;padding: 10px;">Salir</a>
 	<div class="content-bg">	
-<h1>Seccion Clientes</h1> 
+    <h1>Ingreso Clientes</h1> 
+<div class="row">
+    <div class="col-md-6">      
+    </div>
+      <div style="margin-top:-10px;margin-bottom:5px;float:right;" class="col-xs-12 col-md-4">
+        <a  ng-click="vm.descargarLista()"><h7>Descargar lista de precios&nbsp;<img src="public/images/iconos/exel_icon.png" alt=""></h7></a>
+      </div>
+    </div>
 <div class="row">
 <div class="col-md-1">
 </div>
 <div style="color:black;" class="col-md-10 jumbotron">
-	<div class="row">
-    <div class="col-xs-1">
-    </div>
-    <div class="col-xs-10">
       <div class="row">
-        <div class="col-xs-4">
-          <input type="radio" name="radioBusqueda" id="busqCodigo">
+        <p class="text-center parrafoTitulo">Precios de lista (no incluyen IVA)</p>
+        <h6>Sujetos a cambios sin previo aviso</h6>
+        <div class="col-md-1"></div>
+        <div class="col-xs-6 col-md-3">
+          <input type="radio" checked="true" name="radioBusqueda" id="busqCodigo">
           &nbsp;&nbsp;<label for="search">Buscar por código</label>
           </div>
-          <div class="col-xs-4">
+          <div class="col-xs-6 col-md-4">
             <input type="radio" name="radioBusqueda" id="busqNombre">
       &nbsp;&nbsp;<label for="search">Buscar por descripción</label>
-          </div>
-      </div>  
+          </div>          
+      </div> 
+      <br>
       <div class="row">
-        <div class="col-xs-8">
-          <input ng-keypress="vm.enterProd($event)" ng-model="vm.texto" id="search" class="form-control" placeholder="Texto de Busqueda">
+        <div class="col-md-1"></div>
+        <div class="col-xs-12 col-md-11">
+          <input type="checkbox" name="cualqParte" id="cualqParte">
+          &nbsp;&nbsp;<label for="search">Buscar en cualquier parte del campo...</label>
           </div>
-          <div class="col-xs-4">
-            <input type="button" ng-click="vm.cargarProductos()" value="Buscar" class="btn btn-primary">
+      </div> 
+      <br>
+      <div class="row">
+        <div class="col-xs-12 col-md-8">
+          <input autofocus ng-keypress="vm.enterProd($event)" ng-model="vm.texto" id="search" class="form-control" placeholder="Texto de Busqueda">
+          </div>
+          <div class="col-xs-12 col-md-4">
+            <input type="button" ng-click="vm.cargarProductos()" value="Buscar Producto" class="btn btn-primary">
           </div>
       </div>  
-       
-    </div>
-    <div class="col-xs-1">
-    </div>
-  </div>
 <br>
 <div class="widget-content-white glossed">
     <table class="table table-bordered">
@@ -49,8 +59,9 @@
                <tr dir-paginate="item in vm.productos | filter:vm.q | itemsPerPage: vm.pageSize">
                    <td> {{item.codigo}} </td>
                    <td> {{item.descripcion}} </td>
-                   <td> {{item.precio}}</td>
-                   <td> <a ng-style="item.existe != null? {'display':''} : {'display':'none'}" ng-click="vm.abrirImagen(item.codigo,item.descripcion)"><img src="public/images/iconos/camera.png" alt=""></a></td>
+                   <td> {{item.precio || current}}</td>
+                   <td width="50px"> <a ng-style="item.existe != null? {'display':''} : {'display':'none'}" ng-click="vm.abrirImagen(item.id,item.descripcion,item.codigo)"><img src="public/images/iconos/camera.png" alt=""></a>
+                    <a ng-style="item.existe == null || item.existe == ''? {'display':''} : {'display':'none'}" ng-click="vm.abrirImagenNoDisponible()"><img src="public/images/iconos/camara-tachada.png" alt=""></a></td>
                  </tr>
               </tbody>
            </table>

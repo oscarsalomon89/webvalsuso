@@ -9,7 +9,21 @@ angular.module("app")
     $("#cli").removeClass( "current" );
     $("#serv").removeClass( "current" );
 
+    vm.nombre == '';
+    vm.mensaje == '';
+    vm.mail == '';
+    
     vm.enviarCorreo = function(){
+      if(vm.nombre == '' || vm.mail == '' || vm.mensaje == '' ||
+         vm.nombre == null || vm.mail == null || vm.mensaje == null){
+        swal(
+              'Datos incompletos!',
+              'Faltan completar datos',
+              'warning'
+            );
+        return;
+      }
+
       $http({
          method: 'POST', 
          url: 'controllers/envioCorreo.php', 
@@ -21,7 +35,11 @@ angular.module("app")
       }).
       success(function(data) {
          if(data){
-               alert('envio correcto');
+               swal(
+                'Exito!',
+                data,
+                'success'
+              );
                vm.nombre = '';
                vm.mail = '';
                vm.mensaje = '';
@@ -30,7 +48,7 @@ angular.module("app")
          }
       }).
       error(function() {
-         alert('Error al intentar recuperar los clientes.');
+         alert('Error');
       });
    };
 });

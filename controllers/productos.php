@@ -16,18 +16,27 @@ $where = '';
 
 if($filtro == 2){
 	$tipo = $obj->tipo;
+	$parte = $obj->parte;
 	$val = $obj->valor;
 	$where = ' WHERE ';
+	
 	if($tipo == 1){
-		$where .= "codigo = '".$val."'";
+		$where .= "codigo like '%".$val."' order by codigo ASC";
 	}else{
-		$where .= "descripcion like '%".$val."%'";
+		if($parte == 0){
+			//no esta tildado buscar en cualquier parte
+			$cond = "like '".$val."%'";
+		}else{
+			$cond = "like '%".$val."%'";
+		}
+
+		$where .= "descripcion ".$cond." order by descripcion ASC";
 	}
 }
 
 $rows=array();
 $sql = "SELECT * FROM productos 
-			LEFT JOIN imagenes ON codigo = codigoProducto order by codigo ASC"
+			LEFT JOIN imagenes ON id = codigoProducto"
 			.$where; 
 $result = $mysqli->query($sql);  
 

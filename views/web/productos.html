@@ -6,16 +6,27 @@
             	<div class="wrapper">				
                 	<article>
                         <h2>Nuestros productos:</h2>
-                        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                        <div class="btn-group btn-group-justified hidden-xs" role="group" aria-label="...">
                           <div class="btn-group" role="group">
                             <button ng-click="vm.cargarVista(1)" id="rep" type="button" class="btn btn-default activo">
-                              <img src="public/images/productos/repuestos/repuestosVarios.jpg" class="img-indent-bot" alt=""><b>REPUESTOS</b></button>
+                              <img src="public/images/repVarios.png" class="img-indent-bot" alt=""><b>REPUESTOS</b></button>
                           </div>
                           <div class="btn-group" role="group">
                             <button id="hid" ng-click="vm.cargarVista(2)" type="button" class="btn btn-default">
                               <img src="public/images/productos/banners2.png" class="img-indent-bot" alt=""><b>HIDRAULICA</b></button>
                           </div>
-                        </div>                    	
+                        </div> 
+                        <div class="visible-xs">
+                          <div class="btn-group">
+                            <button class="btn btn-primary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Seleccionar <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                              <li><a ng-click="vm.cargarVista(1)">REPUESTOS</a></li>
+                              <li><a ng-click="vm.cargarVista(2)">HIDRAULICA</a></li>
+                            </ul>
+                          </div>
+                        </div>                   	
                         <ng-include src="vm.urlAdmin"></ng-include> 
                     </article>
                 </div>

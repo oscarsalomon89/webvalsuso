@@ -89,7 +89,6 @@ angular.module("app", ["ngRoute",'angularUtils.directives.dirPagination'])
             });
     })
     .factory("clientesFactory", function($http,$location){
-
         var interfaz = {
             getAuth: function(){
                 $http({
@@ -120,6 +119,8 @@ angular.module("app", ["ngRoute",'angularUtils.directives.dirPagination'])
         $("#cli").removeClass( "current" );
         $("#serv").removeClass( "current" );
 
+        $("#navbar").removeClass( "in" );
+
         $(document).ready(function(){
           $('.mp-slider')._TMS({
             show:0,
@@ -138,16 +139,15 @@ angular.module("app", ["ngRoute",'angularUtils.directives.dirPagination'])
        });
 
       vm.openPicture = function(image) {
-        swal({
-          imageUrl: 'public/images/'+image,
-          text: 'Modal with a custom image.',
-          imageWidth: 400,
-          imageHeight: 200,
-          showCloseButton: true,
-          showConfirmButton: false
-        })         
+          swal({
+            imageUrl: 'public/images/'+image,
+            text: 'Modal with a custom image.',
+            imageWidth: 400,
+            imageHeight: 200,
+            showCloseButton: true,
+            showConfirmButton: false
+          })         
         }
 
-       vm     
     });  
     

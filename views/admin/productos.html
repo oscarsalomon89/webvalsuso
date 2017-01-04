@@ -7,18 +7,18 @@
     <button class="btn btn-primary btn-sm" ng-click="vm.uploadFile()">Subir</button>
     </div>
     <div ng-style="vm.cargando === 1 ? {'display':''} : {'display':'none'}">
-      <img style="width:70px;" src="public/images/cargando.gif" alt="">      
+      <img style="width:50px;" src="public/images/cargando.gif" alt="">      
       <p style="display:inline;">Espere un momento mientras se carga el listado</p>
     </div>
     <br>
     <label for="search">Busqueda:</label>
-    <input ng-model="vm.q" id="search" class="form-control" placeholder="Busqueda por codigo o descripcion">
+    <input ng-model="vm.q" id="search" class="form-control" placeholder="Busqueda por codigo o descripcion">    
   </div>
   <div class="col-xs-1">
   </div>
 </div>
     <br>
-<div class="widget-content-white glossed">
+<div ng-style="vm.productos.length > 0? {'display':''} : {'display':'none'}" class="widget-content-white glossed">
     <table class="table table-bordered">
             <thead>
                <tr>
@@ -34,13 +34,14 @@
                    <td> {{item.codigo}} </td>
                    <td> {{item.descripcion}} </td>
                    <td> {{item.precio}}</td>
-                   <td>                    
-                    <a ng-click="vm.cargarVistaImagen(item.codigo)">
+                   <td width="50px">                    
+                    <a ng-click="vm.cargarVistaImagen(item.id)">
                       <img src="public/images/iconos/upload.png" alt="">
                     </a>
                   </td>
-                  <td>
-                    <a ng-style="item.existe != null && item.existe != ''? {'display':''} : {'display':'none'}" ng-click="vm.abrirImagen(item.codigo,item.descripcion)"><img src="public/images/iconos/camera.png" alt=""></a>
+                  <td width="47px">
+                    <a ng-style="item.existe != null && item.existe != ''? {'display':''} : {'display':'none'}" ng-click="vm.abrirImagen(item.id,item.descripcion,item.codigo)"><img src="public/images/iconos/camera.png" alt=""></a>
+                    <a ng-style="item.existe == null || item.existe == ''? {'display':''} : {'display':'none'}" ng-click="vm.abrirImagenNoDisponible()"><img src="public/images/iconos/camara-tachada.png" alt=""></a>
                   </td>
                  </tr>
               </tbody>
@@ -51,4 +52,8 @@
         </dir-pagination-controls>
           </div>
         </div>
+</div>
+<div ng-style="vm.productos.length == 0 ? {'display':''} : {'display':'none'}">
+  <img style="width:30px;" src="public/images/cargando.gif" alt="">      
+  <p style="display:inline;">Espere un momento mientras se carga el listado</p>
 </div>

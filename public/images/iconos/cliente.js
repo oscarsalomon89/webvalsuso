@@ -4,7 +4,6 @@ angular.module("app")
     vm.productos = [];
     vm.pageSize = 10;
     vm.texto = '';
-    vm.recordar = true;
 
     clientesFactory.getAuth();    
     $("#cli").addClass( "current" );
@@ -14,34 +13,6 @@ angular.module("app")
     $("#prod").removeClass( "current" );
     $("#serv").removeClass( "current" );
 
-    $("#navbar").removeClass( "in" );
-
-    vm.descargarLista = function() {
-        $http({
-         method: 'POST', 
-         url: 'controllers/lista.php'
-      }).
-      success(function(data) {
-         if(data != ''){
-            document.location = 'controllers/files/'+data;
-         }else{
-            swal(
-                  'Error!',
-                   'Archivo no disponible.',
-                  'error'
-                );
-         }         
-      }).
-      error(function() {
-         alert('Error al intentar descargar la lista.');
-      });
-    }
-
-    vm.enterLogin = function(keyEvent) {
-      if (keyEvent.which === 13)
-        vm.autenticarUsuario();
-    }
-
     vm.autenticarUsuario = function(){
       $http({
          method: 'POST', 
@@ -49,7 +20,6 @@ angular.module("app")
          data: {
             name: vm.name,
             password: vm.password,
-            recordar: vm.recordar,
             auth: 1           
         }
       }).
@@ -100,7 +70,6 @@ angular.module("app")
 
    vm.cargarProductos = function(){
       var tipoBusqueda = 0;
-      var cualquierParte = 0;
       var textoFallo = '';
       if($("#busqCodigo").is(':checked')) {  
              tipoBusqueda = 1; 
@@ -128,17 +97,12 @@ angular.module("app")
           return;
       }
  
-      if( $('#cualqParte').is(':checked') ) {
-          cualquierParte = 1;
-      }
-
       $http({
          method: 'POST', 
          url: 'controllers/productos.php',
          data: {
             auth: 2,
             tipo: tipoBusqueda,
-            parte: cualquierParte,
             valor: vm.texto      
         }
       }).
@@ -154,12 +118,7 @@ angular.module("app")
       });
    };
 
-   vm.abrirImagen = function(cod,desc,codOriginal){ 
-    swal({
-        title: 'Cargando...',
-        imageUrl: '',
-        timer: 2000
-      }).done();   
+   vm.abrirImagen = function(cod,desc){
     $http({
          method: 'POST',
          url: 'controllers/verFoto.php',
@@ -167,17 +126,16 @@ angular.module("app")
             carpeta: cod
          }
       }).
-      success(function(data) {        
-        swal({
-          title: '<b style="font-size:14px;">'+codOriginal+' - '+desc+'</b>',
-          text: '<i style="font-size:12px;">Imagen a modo ilustrativo</i>',
-          imageUrl: 'public/images/productos/'+cod+'/'+data,
-          imageWidth: 300,
-          imageHeight: 150,
-          animation: false,
-          showCloseButton: true,
-          showConfirmButton: false
-        }).done();
+      success(function(data) {
+         swal({
+            text: cod+' - '+desc+'<br><i style="font-size:12px;">Imagen a modo ilustrativo</i>',
+            imageUrl: '/public/images/productos/'+cod+'/'+data,
+            imageWidth: 400,
+            imageHeight: 400,
+            animation: false,
+            showCloseButton: true,
+            showConfirmButton: false
+          })
       }).
       error(function() {
          alert('Error al intentar cargar la foto.');
@@ -193,7 +151,7 @@ angular.module("app")
         animation: false,
         showCloseButton: true,
         showConfirmButton: false
-      }).done();  
+      })  
   }
 
 });

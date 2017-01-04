@@ -266,47 +266,114 @@ vm.uploadFile = function() {
       })
   }
 
-  vm.cargarVistaImagen = function(cod,existe) {
+vm.cargarVistaImagen = function(cod,existe) {
       vm._id = null;
       swal({
         title: '<strong>Carga Imagen</strong>',
         html:'<form enctype="multipart/form-data" id="formuploadajax" method="post">'+
-          '<input style="display:initial;" type="file" name="file" id="fotoProd" />'+
+          '<input style="display:initial;" name="photo[]" multiple type="file" name="file" id="fotoProd" />'+
           '<input type="hidden" name="codigo" id="codigo" value="'+cod+'"/></form>',
         showCloseButton: true,
         showCancelButton: true,
+        showLoaderOnConfirm: true,
         confirmButtonText: 'Subir',
-        cancelButtonText: 'Cancelar'
-      }).then(function() { 
-            var formData = new FormData(document.getElementById("formuploadajax"));
-            formData.append("dato", "valor");
-            //
-            var fd = new FormData(document.getElementById("formuploadajax"));
-            fd.append("dato", "valor");
-            $http.post("controllers/fotoUpload.php", 
-                fd, {
-                  transformRequest: angular.identity,
-                  headers: {'Content-Type': undefined}
-               })
-            .success(function(res){
-                    if(res == 'exito'){
-                      swal(
-                        'Exito!',
-                        'La foto se subió correctamente!',
-                        'success'
-                      )
-                      vm.obtenerProductos();
-                    }else{
-                      swal(
-                        'Error!',
-                        res
-                      )
-                    }                    
-                }); 
+        cancelButtonText: 'Cancelar',
+        preConfirm: function () {
+        return new Promise(function (resolve) {
+          var files = document.getElementById('fotoProd').files;
+          var codigo = document.getElementById('codigo').value;
+          //obtengo la extension del archivo cargado
+          var extension = files[0]['type'].split('/').pop();
+          if(extension == 'jpg' || extension == 'jpeg'){
+              resizeAndUpload(files[0],codigo);
+          }else{
+            swal(
+                'Error!',
+                'Extension no permitida!',
+                'error'
+              );
+          }
+                    
+        })}
       })
-  }
+  };
+  
+function resizeAndUpload(file,codigo){
+  var reader = new FileReader();
+  reader.onloadend = function() {
+    var tempImg = new Image();
+    tempImg.onload = function() {
+      // Comprobamos con el aspect cómo será la reducción
+      // MAX_IMAGE_SIZE_PROCESS es la N que definimos como máxima
+      var MAX_WIDTH = 600;
+      var MAX_HEIGHT = 800;
+      var tempW = tempImg.width;
+      var tempH = tempImg.height;
+      if (tempW > tempH) {
+        if (tempW > MAX_WIDTH) {
+          tempH *= MAX_WIDTH / tempW;
+          tempW = MAX_WIDTH;
+        }
+      } else {
+        if (tempH > MAX_HEIGHT) {
+          tempW *= MAX_HEIGHT / tempH;
+          tempH = MAX_HEIGHT;
+        }
+      }
+      // Creamos un canvas para la imagen reducida y la dibujamos
+      var resizedCanvas = document.createElement('canvas');
+      resizedCanvas.width = tempW;
+      resizedCanvas.height = tempH;
+      var ctx = resizedCanvas.getContext("2d");
+      ctx.drawImage(this, 0, 0, tempW, tempH);
+      var dataURL = resizedCanvas.toDataURL("image/jpeg");
 
-  vm.abrirImagen = function(cod,desc){
+      // Pasamos la dataURL que nos devuelve Canvas a objeto Blob
+      // Envíamos por Ajax el objeto Blob
+      // Cogiendo el valor de photo (nombre del input file)
+      var file = dataURLtoBlob(dataURL);
+      var fd = new FormData();
+      fd.append("photo",file);
+      fd.append("codigo",codigo);
+      
+      var ajax = new XMLHttpRequest();
+      ajax.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          swal(
+              'Exito!',
+              'La foto se subió correctamente!',
+              'success'
+            )
+            vm.obtenerProductos();
+        }
+      };
+      ajax.open("POST","controllers/fotoUpload.php",true);
+      ajax.send(fd);
+    };
+    tempImg.src = reader.result;
+  }
+  reader.readAsDataURL(file);
+}
+
+  function dataURLtoBlob(dataURL){
+  // Decodifica dataURL
+  var binary = atob(dataURL.split(',')[1]);
+  // Se transfiere a un array de 8-bit unsigned
+  var array = [];
+  var length = binary.length;
+  for(var i = 0; i < length; i++) {
+    array.push(binary.charCodeAt(i));
+  }
+  // Retorna el objeto Blob
+  return new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
+} 
+
+  vm.abrirImagen = function(cod,desc,codOriginal){
+    swal({
+        title: 'Cargando...',
+        showConfirmButton: false,
+        timer: 2000
+      }).done();
     $http({
          method: 'POST',
          url: 'controllers/verFoto.php',
@@ -315,19 +382,30 @@ vm.uploadFile = function() {
          }
       }).
       success(function(data) {
-         swal({
-            text: cod+' - '+desc,
-            imageUrl: '/webvalsuso/public/images/productos/'+cod+'/'+data,
-            imageWidth: 400,
-            imageHeight: 400,
-            animation: false,
+        swal({
+            html:
+              '<img src="public/images/productos/'+cod+'/'+data+'" alt="">' +
+              '<br><b>'+codOriginal+' - '+desc+'</b>' +
+              '<br><i style="font-size:12px;">Imagen a modo ilustrativo</i>',
             showCloseButton: true,
             showConfirmButton: false
-          })
+          }).done();
       }).
       error(function() {
          alert('Error al intentar cargar la foto.');
       });   
+  }
+
+  vm.abrirImagenNoDisponible = function(){
+     swal({
+        text: '<i>Vista previa no disponible</i>',
+        imageUrl: '/webvalsuso/public/images/iconos/vistaPrevia.png',
+        imageWidth: 400,
+        imageHeight: 400,
+        animation: false,
+        showCloseButton: true,
+        showConfirmButton: false
+      })
   }
 
 });
