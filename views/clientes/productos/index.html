@@ -1,23 +1,34 @@
 <section id="content">
 <div class="zerogrid"> 
   <a ng-click="vm.salir()" style="float:right;padding: 10px;">Salir</a>
-	<div class="content-bg">	
-    <h1>Ingreso Clientes</h1> 
+	<div class="content-bg">
+      <div class="row">
+          <div class="col-md-6"> 
+            <h1>Ingreso Clientes</h1>
+          </div>
+          <div class="col-xs-12 col-md-4" style="float:right;">                             
+            <input type="button" style="margin-left:20px;" class="btn btn-default" ng-click="vm.imprimirCatalogo()" value="Ver Catalogo"> 
+          </div>
+        </div>	
 <div class="row">
     <div class="col-md-6">      
     </div>
       <div style="margin-top:-10px;margin-bottom:5px;float:right;" class="col-xs-12 col-md-4">
-        <a  ng-click="vm.descargarLista()"><h7>Descargar lista de precios&nbsp;<img src="public/images/iconos/exel_icon.png" alt=""></h7></a>
+        <a  ng-click="vm.descargarLista()">
+          <h7>Descargar lista de precios&nbsp;<img src="public/images/iconos/exel_icon.png" alt=""></h7>
+        </a>
       </div>
     </div>
 <div class="row">
 <div class="col-md-1">
 </div>
 <div style="color:black;" class="col-md-10 jumbotron">
-      <div class="row">
-        <p class="text-center parrafoTitulo">Precios de lista (no incluyen IVA)</p>
-        <h6>Sujetos a cambios sin previo aviso</h6>
-        <div class="col-md-1"></div>
+    <p class="text-center parrafoTitulo">Precios de lista (no incluyen IVA)</p>
+    <h6>Sujetos a cambios sin previo aviso</h6>
+    <div class="row">
+        <div class="col-md-3">
+          <label>Criterio busqueda:</label>
+        </div>
         <div class="col-xs-6 col-md-3">
           <input type="radio" checked="true" name="radioBusqueda" id="busqCodigo">
           &nbsp;&nbsp;<label for="search">Buscar por código</label>
@@ -27,14 +38,32 @@
       &nbsp;&nbsp;<label for="search">Buscar por descripción</label>
           </div>          
       </div> 
+      <div class="row">
+          <div class="col-md-3"></div>
+          <div class="col-xs-12 col-md-9">
+            <input type="checkbox" name="cualqParte" id="cualqParte">
+            &nbsp;&nbsp;<label for="search">Buscar en cualquier parte del campo...</label>
+            </div>
+        </div> 
       <br>
       <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-xs-12 col-md-11">
-          <input type="checkbox" name="cualqParte" id="cualqParte">
-          &nbsp;&nbsp;<label for="search">Buscar en cualquier parte del campo...</label>
+        <div class="col-md-3">
+            <label>Criterio de orden:</label>          
+        </div>
+        <div class="col-xs-6 col-md-3">
+          <select class="form-control" ng-model="vm.ordenamiento" id="ordenamiento">
+              <option value="">Seleccionar..</option>
+            <option value="codigo">Codigo</option>
+            <option value="descripcion">Descripcion</option>
+          </select>
           </div>
-      </div> 
+          <div class="col-xs-6 col-md-4">
+            <input type="radio" name="criterioOrden" id="criterioAs">
+            &nbsp;&nbsp;<label for="search">Asc</label><br>
+            <input type="radio" name="criterioOrden" id="criterioDes">
+            &nbsp;&nbsp;<label for="search">Des</label>
+          </div>          
+      </div>      
       <br>
       <div class="row">
         <div class="col-xs-12 col-md-8">
@@ -44,34 +73,39 @@
             <input type="button" ng-click="vm.cargarProductos()" value="Buscar Producto" class="btn btn-primary">
           </div>
       </div>  
-<br>
-<div class="widget-content-white glossed">
-    <table class="table table-bordered">
-            <thead>
-               <tr>
-                  <th> Codigo </th>
-                  <th> Descripcion </th>
-                  <th> Precio </th>
-                  <th> </th>
-               </tr>
-            </thead>
-            <tbody>
-               <tr dir-paginate="item in vm.productos | filter:vm.q | itemsPerPage: vm.pageSize">
-                   <td> {{item.codigo}} </td>
-                   <td> {{item.descripcion}} </td>
-                   <td> {{item.precio || current}}</td>
-                   <td width="50px"> <a ng-style="item.existe != null? {'display':''} : {'display':'none'}" ng-click="vm.abrirImagen(item.id,item.descripcion,item.codigo)"><img src="public/images/iconos/camera.png" alt=""></a>
-                    <a ng-style="item.existe == null || item.existe == ''? {'display':''} : {'display':'none'}" ng-click="vm.abrirImagenNoDisponible()"><img src="public/images/iconos/camara-tachada.png" alt=""></a></td>
-                 </tr>
-              </tbody>
-           </table>
-      <div class="other-controller">
+  <br>
+  <div class="widget-content-white glossed" ng-show="vm.productos.length > 0">
+      <table class="table table-bordered">
+        <thead>
+            <tr>
+              <th> Codigo </th>
+              <th> Descripcion </th>
+              <th> Precio </th>
+              <th> </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr dir-paginate="item in vm.productos | filter:vm.q | itemsPerPage: vm.pageSize">
+                <td> {{item.codigo}} </td>
+                <td> {{item.descripcion}} </td>
+                <td> {{item.precio || current}}</td>
+                <td width="50px"> <a ng-style="item.existe != null? {'display':''} : {'display':'none'}" ng-click="vm.abrirImagen(item.id,item.descripcion,item.codigo)"><img src="public/images/iconos/camera.png" alt=""></a>
+                <a ng-style="item.existe == null || item.existe == ''? {'display':''} : {'display':'none'}" ng-click="vm.abrirImagenNoDisponible()"><img src="public/images/iconos/camara-tachada.png" alt=""></a></td>
+              </tr>
+          </tbody>
+        </table>
+        <div class="other-controller">
           <div class="text-center">
-          <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="views/dirPagination.tpl.html">
-        </dir-pagination-controls>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="views/dirPagination.tpl.html">
+            </dir-pagination-controls>
           </div>
         </div>
-</div>
+  </div>
+  <div ng-show="vm.productos.length == 0">
+      <div class="text-center">
+          <p class="bg-info">No se encontralon resultados</p>
+      </div>    
+  </div>
 </div>
 <div class="col-md-1">
 </div>

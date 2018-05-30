@@ -25,9 +25,8 @@ switch ($obj->auth) {
         if($row){       
             if(password_verify($password,$row['password'])){
                 if($recordar == true){
-                    mt_srand(time());
-                    $rand = mt_rand(1000000,9999999);
                     setcookie("id_user",$row["id"], time()+(60*60*24*365));
+                    setcookie("password",$password, time()+(60*60*24*365));
                 }
                 $_SESSION['rol']   = $row['rol'];
                 $_SESSION['userid'] = $row['id'];
@@ -44,28 +43,29 @@ switch ($obj->auth) {
         session_destroy();
         unset($_COOKIE["id_user"]);
         setcookie('id_user','', time() - 1000);
+        setcookie('password','', time() - 1000);
         echo true;
         break;
     default:
         if(!isset($_SESSION['userid'])){
-            if(isset($_COOKIE['id_user'])){
-                if($_COOKIE['id_user']!=""){
-                    $sql = "SELECT rol FROM clientes WHERE id = '".
+            if(isset($_COOKIE['id_user']) && isset($_COOKIE['password']) && 
+                $_COOKIE['id_user'] !="" && $_COOKIE['password'] !=""){
+                    $sql = "SELECT rol,password FROM clientes WHERE id = '".
                             $_COOKIE["id_user"]."'"; 
                     $result = $mysqli->query($sql);
                     $row = $result->fetch_array(MYSQLI_ASSOC);
 
                     if($row){
-                        if($row['rol'] == 1){ 
-                            echo 'admin'; //admin//usuarios
-                        }else{
-                            echo 'usuarios';
-                        }
+                        if(password_verify($_COOKIE["password"],$row['password'])){
+                            if($row['rol'] == 1){ 
+                                echo 'admin'; //admin//usuarios
+                            }else{
+                                echo 'usuarios';
+                            }
+                        }                    
                     }else{
                         echo 'clientes'; 
                     }
-                }
-
             }else 
                 echo 'clientes'; 
         } else {

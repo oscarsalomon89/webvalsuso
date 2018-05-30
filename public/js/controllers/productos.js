@@ -25,7 +25,11 @@ angular.module("app")
 	      $("#rep").removeClass("activo");
 	      vm.urlAdmin = 'views/web/hidraulica.html';
 	  }
-	}
+  }
+  
+  vm.imprimirCatalogo = function(){    
+    window.open('views/catalog/');
+ };
 
 	vm.abrirImagenProductos = function(img){
 		swal({

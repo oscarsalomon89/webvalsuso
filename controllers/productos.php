@@ -13,15 +13,19 @@ if ($mysqli->connect_errno) {
 
 $filtro = $obj->auth;
 $where = '';
+$orderBy = '';
 
 if($filtro == 2){
 	$tipo = $obj->tipo;
 	$parte = $obj->parte;
 	$val = $obj->valor;
+	$orden = $obj->campoOrden;
+	$tipoOrden = $obj->tipoOrden;
+
 	$where = ' WHERE ';
 	
 	if($tipo == 1){
-		$where .= "codigo like '%".$val."' order by codigo ASC";
+		$where .= "codigo like '%".$val."'";
 	}else{
 		if($parte == 0){
 			//no esta tildado buscar en cualquier parte
@@ -30,14 +34,19 @@ if($filtro == 2){
 			$cond = "like '%".$val."%'";
 		}
 
-		$where .= "descripcion ".$cond." order by descripcion ASC";
+		$where .= "descripcion ".$cond;
+	}
+
+	if($orden != ''){
+		$orderBy = ' order by '.$orden.' '.$tipoOrden;
 	}
 }
 
 $rows=array();
 $sql = "SELECT * FROM productos 
 			LEFT JOIN imagenes ON id = codigoProducto"
-			.$where; 
+			.$where.$orderBy; 
+			
 $result = $mysqli->query($sql);  
 
 while($row = $result->fetch_array(MYSQLI_ASSOC)){

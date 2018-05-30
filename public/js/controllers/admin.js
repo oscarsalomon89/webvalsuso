@@ -85,6 +85,10 @@ vm.uploadFile = function() {
       });
    };
 
+   vm.generarCatalogo = function(){    
+    window.open('views/catalogo/');
+ };
+
    vm.pageChangeHandler = function(num) {
     console.log('going to page ' + num);
   };

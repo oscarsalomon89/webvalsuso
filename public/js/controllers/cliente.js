@@ -4,6 +4,7 @@ angular.module("app")
     vm.productos = [];
     vm.pageSize = 10;
     vm.texto = '';
+    vm.ordenamiento = '';
     vm.recordar = true;
 
     clientesFactory.getAuth();    
@@ -15,6 +16,47 @@ angular.module("app")
     $("#serv").removeClass( "current" );
 
     $("#navbar").removeClass( "in" );
+
+    vm.imprimirCatalogo = function(){    
+      swal({
+        title: 'Detalle de catálogo',
+        input: 'select',
+        inputOptions: {
+          '1': 'Solo productos con imagenes',
+          '2': 'Todos los productos'
+        },
+        inputPlaceholder: 'Seleccionar',
+        showCancelButton: true,
+        inputValidator: function (value) {
+          return new Promise(function (resolve, reject) {
+            if (value !== '') {
+              resolve();
+            } else {
+              reject('Debe seleccionar un tipo de catalogo');
+            }
+          });
+        }
+      }).then(function (result) {
+          swal.close();
+          var form = document.createElement("form");
+          form.setAttribute("method", "post");
+          form.setAttribute("action", 'views/catalogo/index.php');
+          form.setAttribute("target", 'catalogo');
+
+          var input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = 'tipo';
+          input.value = result;
+          form.appendChild(input);
+          document.body.appendChild(form);
+
+          window.open("views/catalogo/", 'catalogo');            
+          form.submit();
+          document.body.removeChild(form);
+
+          //window.open('views/catalogo/index.php?tipo='+result);
+      }); 
+   };
 
     vm.descargarLista = function() {
         $http({
@@ -102,6 +144,8 @@ angular.module("app")
       var tipoBusqueda = 0;
       var cualquierParte = 0;
       var textoFallo = '';
+      var tipoOrden = '';
+
       if($("#busqCodigo").is(':checked')) {  
              tipoBusqueda = 1; 
              textoFallo = 'Escriba el código para realizar la busqueda';
@@ -118,7 +162,15 @@ angular.module("app")
             return;
           }  
         }
-        //alert(vm.texto);
+
+        if(vm.ordenamiento != ''){
+          tipoOrden = 'ASC'; 
+
+          if($("#criterioDes").is(':checked')) {
+            tipoOrden = 'DESC'; 
+          }
+        }
+        
       if(vm.texto == ''){
         swal(
             'Error!',
@@ -139,18 +191,20 @@ angular.module("app")
             auth: 2,
             tipo: tipoBusqueda,
             parte: cualquierParte,
-            valor: vm.texto      
+            valor: vm.texto,
+            campoOrden: vm.ordenamiento,
+            tipoOrden: tipoOrden     
         }
       }).
       success(function(data) {
          if(typeof(data) == 'object'){
             vm.productos = data;
          }else{            
-            alert('Error al intentar recuperar los clientes.');
+            alert('Error en la busqueda.');
          }
       }).
       error(function() {
-         alert('Error al intentar recuperar los clientes.');
+         alert('Error en la busqueda.');
       });
    };
 

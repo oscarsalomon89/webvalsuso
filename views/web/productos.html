@@ -5,7 +5,15 @@
         	<div class="row content-bg">
             	<div class="wrapper">				
                 	<article>
-                        <h2>Nuestros productos:</h2>
+                      <div class="row">
+                          <div class="col-xs-6"> 
+                            <h2>Nuestros productos:</h2>
+                          </div>
+                          <div class="col-xs-3">                             
+                            <input style="float:right" type="button" class="btn btn-default" ng-click="vm.imprimirCatalogo()" value="Ver Catalogo"> 
+                          </div>
+                          <div class="col-xs-3" style="float:right">Para ver el catalogo con precios, ingrese desde la sección Clientes</div>
+                        </div> 
                         <div class="btn-group btn-group-justified hidden-xs" role="group" aria-label="...">
                           <div class="btn-group" role="group">
                             <button ng-click="vm.cargarVista(1)" id="rep" type="button" class="btn btn-default activo">

@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-xs-1">
   </div>
-  <div class="col-xs-10">
+  <div class="col-xs-9">
     <div ng-style="vm.cargando === 0? {'display':''} : {'display':'none'}">
     <input style="display:initial;" type="file" id="fileMobile" name="file" file-model="vm.file" />
     <button class="btn btn-primary btn-sm" ng-click="vm.uploadFile()">Subir</button>
@@ -14,8 +14,11 @@
     <label for="search">Busqueda:</label>
     <input ng-model="vm.q" id="search" class="form-control" placeholder="Busqueda por codigo o descripcion">    
   </div>
-  <div class="col-xs-1">
+  <div class="col-xs-2">
+      <button class="btn btn-primary btn-sm" ng-click="vm.generarCatalogo()">Generar Catálogo</button>
   </div>
+</div>
+<div id="exportthis">
 </div>
     <br>
 <div ng-style="vm.productos.length > 0? {'display':''} : {'display':'none'}" class="widget-content-white glossed">
